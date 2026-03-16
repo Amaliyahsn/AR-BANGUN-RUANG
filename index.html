@@ -2,10 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
     <script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
@@ -70,467 +67,87 @@
       cursor="rayOrigin: mouse"
       raycaster="objects: .clickable"
     >
-      <a-marker
-        type="pattern"
-        url="markers/pattern-kubus.patt"
-        id="marker-kubus"
-      >
+      <a-marker type="pattern" url="markers/pattern-kubus.patt" id="marker-kubus">
         <a-entity gesture-handler>
-          <a-box
-            id="obj-kubus"
-            class="clickable"
-            position="0 0.5 0"
-            color="#00ACC1"
-            opacity="0.8"
-            onclick="toggleNet('kubus')"
-          >
-            <a-box
-              scale="1.005 1.005 1.005"
-              material="wireframe: true; color: white; opacity: 0.8"
-            ></a-box>
-
+          <a-box id="obj-kubus" class="clickable" position="0 0.5 0" color="#00ACC1" opacity="0.8" onclick="toggleNet('kubus')">
+            <a-box scale="1.005 1.005 1.005" material="wireframe: true; color: white; opacity: 0.8"></a-box>
             <a-entity id="sisi-anim-kubus" visible="false">
-              <a-plane
-                position="0 0 0.51"
-                width="0.98"
-                height="0.98"
-                color="yellow"
-                opacity="0.7"
-              ></a-plane>
-              <a-plane
-                position="0 0 -0.51"
-                rotation="0 180 0"
-                width="0.98"
-                height="0.98"
-                color="yellow"
-                opacity="0.7"
-              ></a-plane>
-              <a-plane
-                position="0.51 0 0"
-                rotation="0 90 0"
-                width="0.98"
-                height="0.98"
-                color="yellow"
-                opacity="0.7"
-              ></a-plane>
-              <a-plane
-                position="-0.51 0 0"
-                rotation="0 -90 0"
-                width="0.98"
-                height="0.98"
-                color="yellow"
-                opacity="0.7"
-              ></a-plane>
-              <a-plane
-                position="0 0.51 0"
-                rotation="-90 0 0"
-                width="0.98"
-                height="0.98"
-                color="yellow"
-                opacity="0.7"
-              ></a-plane>
-              <a-plane
-                position="0 -0.51 0"
-                rotation="90 0 0"
-                width="0.98"
-                height="0.98"
-                color="yellow"
-                opacity="0.7"
-              ></a-plane>
+              <a-plane position="0 0 0.51" width="0.98" height="0.98" color="yellow" opacity="0.7"></a-plane>
+              <a-plane position="0 0 -0.51" rotation="0 180 0" width="0.98" height="0.98" color="yellow" opacity="0.7"></a-plane>
+              <a-plane position="0.51 0 0" rotation="0 90 0" width="0.98" height="0.98" color="yellow" opacity="0.7"></a-plane>
+              <a-plane position="-0.51 0 0" rotation="0 -90 0" width="0.98" height="0.98" color="yellow" opacity="0.7"></a-plane>
+              <a-plane position="0 0.51 0" rotation="-90 0 0" width="0.98" height="0.98" color="yellow" opacity="0.7"></a-plane>
+              <a-plane position="0 -0.51 0" rotation="90 0 0" width="0.98" height="0.98" color="yellow" opacity="0.7"></a-plane>
             </a-entity>
-
-            <a-box
-              id="vol-kubus"
-              position="0 -0.5 0"
-              scale="0.98 0 0.98"
-              color="#4DD0E1"
-              visible="false"
-            ></a-box>
+            <a-box id="vol-kubus" position="0 -0.5 0" scale="0.98 0 0.98" color="#4DD0E1" visible="false"></a-box>
           </a-box>
-
-          <a-entity
-            id="net-kubus"
-            visible="false"
-            rotation="-90 0 0"
-            class="clickable"
-            onclick="toggleNet('kubus')"
-          >
-            <a-entity position="0 0 0"
-              ><a-plane color="#00ACC1" material="side:double"></a-plane
-              ><a-plane
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-plane
-            ></a-entity>
-            <a-entity position="0 1 0"
-              ><a-plane color="#00ACC1" material="side:double"></a-plane
-              ><a-plane
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-plane
-            ></a-entity>
-            <a-entity position="0 -1 0"
-              ><a-plane color="#00ACC1" material="side:double"></a-plane
-              ><a-plane
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-plane
-            ></a-entity>
-            <a-entity position="0 -2 0"
-              ><a-plane color="#00ACC1" material="side:double"></a-plane
-              ><a-plane
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-plane
-            ></a-entity>
-            <a-entity position="-1 0 0"
-              ><a-plane color="#00ACC1" material="side:double"></a-plane
-              ><a-plane
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-plane
-            ></a-entity>
-            <a-entity position="1 0 0"
-              ><a-plane color="#00ACC1" material="side:double"></a-plane
-              ><a-plane
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-plane
-            ></a-entity>
+          <a-entity id="net-kubus" visible="false" rotation="-90 0 0" class="clickable" onclick="toggleNet('kubus')">
+            <a-entity position="0 0 0"><a-plane color="#00ACC1" material="side:double"></a-plane><a-plane material="wireframe:true; color:white" scale="1.01 1.01 1"></a-plane></a-entity>
+            <a-entity position="0 1 0"><a-plane color="#00ACC1" material="side:double"></a-plane><a-plane material="wireframe:true; color:white" scale="1.01 1.01 1"></a-plane></a-entity>
+            <a-entity position="0 -1 0"><a-plane color="#00ACC1" material="side:double"></a-plane><a-plane material="wireframe:true; color:white" scale="1.01 1.01 1"></a-plane></a-entity>
+            <a-entity position="0 -2 0"><a-plane color="#00ACC1" material="side:double"></a-plane><a-plane material="wireframe:true; color:white" scale="1.01 1.01 1"></a-plane></a-entity>
+            <a-entity position="-1 0 0"><a-plane color="#00ACC1" material="side:double"></a-plane><a-plane material="wireframe:true; color:white" scale="1.01 1.01 1"></a-plane></a-entity>
+            <a-entity position="1 0 0"><a-plane color="#00ACC1" material="side:double"></a-plane><a-plane material="wireframe:true; color:white" scale="1.01 1.01 1"></a-plane></a-entity>
           </a-entity>
         </a-entity>
       </a-marker>
-      <a-marker
-        type="pattern"
-        url="markers/pattern-Balok.patt"
-        id="marker-balok"
-      >
+
+      <a-marker type="pattern" url="markers/pattern-Balok.patt" id="marker-balok">
         <a-entity gesture-handler>
-          <a-box
-            id="obj-balok"
-            class="clickable"
-            position="0 0.3 0"
-            width="1.5"
-            height="0.6"
-            depth="0.8"
-            color="#4CAF50"
-            opacity="0.8"
-            onclick="toggleNet('balok')"
-          >
-            <a-box
-              width="1.51"
-              height="0.61"
-              depth="0.81"
-              material="wireframe: true; color: white"
-            ></a-box>
-            <a-plane
-              class="h-sisi"
-              position="0 0 0.41"
-              width="1.4"
-              height="0.5"
-              color="yellow"
-              visible="false"
-            ></a-plane>
-            <a-box
-              id="vol-balok"
-              position="0 -0.3 0"
-              width="1.45"
-              height="0"
-              depth="0.75"
-              color="#81C784"
-              visible="false"
-            ></a-box>
+          <a-box id="obj-balok" class="clickable" position="0 0.3 0" width="1.5" height="0.6" depth="0.8" color="#4CAF50" opacity="0.8" onclick="toggleNet('balok')">
+            <a-box width="1.51" height="0.61" depth="0.81" material="wireframe: true; color: white"></a-box>
+            <a-plane class="h-sisi" position="0 0 0.41" width="1.4" height="0.5" color="yellow" visible="false"></a-plane>
+            <a-box id="vol-balok" position="0 -0.3 0" width="1.45" height="0.6" depth="0.75" color="#81C784" visible="false" scale="1 0 1"></a-box>
           </a-box>
-          <a-entity
-            id="net-balok"
-            visible="false"
-            rotation="-90 0 0"
-            class="clickable"
-            onclick="toggleNet('balok')"
-          >
-            <a-entity position="0 0 0"
-              ><a-plane
-                width="1.5"
-                height="0.8"
-                color="#4CAF50"
-                material="side:double"
-              ></a-plane
-              ><a-plane
-                width="1.5"
-                height="0.8"
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-plane
-            ></a-entity>
-            <a-entity position="0 0.7 0"
-              ><a-plane
-                width="1.5"
-                height="0.6"
-                color="#4CAF50"
-                material="side:double"
-              ></a-plane
-              ><a-plane
-                width="1.5"
-                height="0.6"
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-plane
-            ></a-entity>
-            <a-entity position="0 -0.7 0"
-              ><a-plane
-                width="1.5"
-                height="0.6"
-                color="#4CAF50"
-                material="side:double"
-              ></a-plane
-              ><a-plane
-                width="1.5"
-                height="0.6"
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-plane
-            ></a-entity>
-            <a-entity position="0 -1.4 0"
-              ><a-plane
-                width="1.5"
-                height="0.8"
-                color="#4CAF50"
-                material="side:double"
-              ></a-plane
-              ><a-plane
-                width="1.5"
-                height="0.8"
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-plane
-            ></a-entity>
-            <a-entity position="-1.15 0 0"
-              ><a-plane
-                width="0.8"
-                height="0.8"
-                color="#4CAF50"
-                material="side:double"
-              ></a-plane
-              ><a-plane
-                width="0.8"
-                height="0.8"
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-plane
-            ></a-entity>
-            <a-entity position="1.15 -0.7 0"
-              ><a-plane
-                width="0.8"
-                height="0.6"
-                color="#4CAF50"
-                material="side:double"
-              ></a-plane
-              ><a-plane
-                width="0.8"
-                height="0.6"
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-plane
-            ></a-entity>
+          <a-entity id="net-balok" visible="false" rotation="-90 0 0" class="clickable" onclick="toggleNet('balok')">
+            <a-entity position="0 0 0"><a-plane width="1.5" height="0.8" color="#4CAF50" material="side:double"></a-plane><a-plane width="1.5" height="0.8" material="wireframe:true; color:white" scale="1.01 1.01 1"></a-plane></a-entity>
+            <a-entity position="0 0.7 0"><a-plane width="1.5" height="0.6" color="#4CAF50" material="side:double"></a-plane><a-plane width="1.5" height="0.6" material="wireframe:true; color:white" scale="1.01 1.01 1"></a-plane></a-entity>
+            <a-entity position="0 -0.7 0"><a-plane width="1.5" height="0.6" color="#4CAF50" material="side:double"></a-plane><a-plane width="1.5" height="0.6" material="wireframe:true; color:white" scale="1.01 1.01 1"></a-plane></a-entity>
+            <a-entity position="0 -1.4 0"><a-plane width="1.5" height="0.8" color="#4CAF50" material="side:double"></a-plane><a-plane width="1.5" height="0.8" material="wireframe:true; color:white" scale="1.01 1.01 1"></a-plane></a-entity>
+            <a-entity position="-1.15 0 0"><a-plane width="0.8" height="0.8" color="#4CAF50" material="side:double"></a-plane><a-plane width="0.8" height="0.8" material="wireframe:true; color:white" scale="1.01 1.01 1"></a-plane></a-entity>
+            <a-entity position="1.15 -0.7 0"><a-plane width="0.8" height="0.6" color="#4CAF50" material="side:double"></a-plane><a-plane width="0.8" height="0.6" material="wireframe:true; color:white" scale="1.01 1.01 1"></a-plane></a-entity>
           </a-entity>
         </a-entity>
       </a-marker>
-<a-marker
-        type="pattern"
-        url="markers/pattern-Tabung.patt"
-        id="marker-tabung"
-      >
-        <a-entity gesture-handler>
-          <a-cylinder
-            id="obj-tabung"
-            class="clickable"
-            position="0 0.5 0"
-            radius="0.5"
-            height="1.2"
-            color="#FF9800"
-            opacity="0.8"
-            onclick="toggleNet('tabung')"
-          >
-            <a-cylinder
-              radius="0.51"
-              height="1.21"
-              material="wireframe: true; color: white"
-            ></a-cylinder>
-            
-            <a-circle
-              class="h-sisi"
-              position="0 0.61 0"
-              rotation="-90 0 0"
-              radius="0.5"
-              color="yellow"
-              visible="false"
-            ></a-circle>
 
-            <a-cylinder
-              id="vol-tabung"
-              position="0 -0.6 0"
-              radius="0.48"
-              height="1.2" 
-              color="#FFB74D"
-              visible="false"
-              scale="1 0 1"
-            ></a-cylinder>
+      <a-marker type="pattern" url="markers/pattern-Tabung.patt" id="marker-tabung">
+        <a-entity gesture-handler>
+          <a-cylinder id="obj-tabung" class="clickable" position="0 0.5 0" radius="0.5" height="1.2" color="#FF9800" opacity="0.8" onclick="toggleNet('tabung')">
+            <a-cylinder radius="0.51" height="1.21" material="wireframe: true; color: white"></a-cylinder>
+            <a-circle class="h-sisi" position="0 0.61 0" rotation="-90 0 0" radius="0.5" color="yellow" visible="false"></a-circle>
+            <a-cylinder id="vol-tabung" position="0 -0.6 0" radius="0.48" height="1.2" color="#FFB74D" visible="false" scale="1 0 1"></a-cylinder>
           </a-cylinder>
-
-          <a-entity
-            id="net-tabung"
-            visible="false"
-            rotation="-90 0 0"
-            class="clickable"
-            onclick="toggleNet('tabung')"
-          >
-            <a-entity position="0 0 0">
-              <a-plane
-                width="3.14"
-                height="1.2"
-                color="#FF9800"
-                material="side:double"
-              ></a-plane>
-              <a-plane
-                width="3.14"
-                height="1.2"
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-plane>
-            </a-entity>
-            <a-entity position="0 0.85 0">
-              <a-circle
-                radius="0.5"
-                color="#FF9800"
-                material="side:double"
-              ></a-circle>
-              <a-circle
-                radius="0.5"
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-circle>
-            </a-entity>
-            <a-entity position="0 -0.85 0">
-              <a-circle
-                radius="0.5"
-                color="#FF9800"
-                material="side:double"
-              ></a-circle>
-              <a-circle
-                radius="0.5"
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-circle>
-            </a-entity>
+          <a-entity id="net-tabung" visible="false" rotation="-90 0 0" class="clickable" onclick="toggleNet('tabung')">
+            <a-entity position="0 0 0"><a-plane width="3.14" height="1.2" color="#FF9800" material="side:double"></a-plane><a-plane width="3.14" height="1.2" material="wireframe:true; color:white" scale="1.01 1.01 1"></a-plane></a-entity>
+            <a-entity position="0 0.85 0"><a-circle radius="0.5" color="#FF9800" material="side:double"></a-circle><a-circle radius="0.5" material="wireframe:true; color:white" scale="1.01 1.01 1"></a-circle></a-entity>
+            <a-entity position="0 -0.85 0"><a-circle radius="0.5" color="#FF9800" material="side:double"></a-circle><a-circle radius="0.5" material="wireframe:true; color:white" scale="1.01 1.01 1"></a-circle></a-entity>
           </a-entity>
         </a-entity>
       </a-marker>
 
-      <a-marker
-        type="pattern"
-        url="markers/pattern-Kerucut.patt"
-        id="marker-kerucut"
-      >
+      <a-marker type="pattern" url="markers/pattern-Kerucut.patt" id="marker-kerucut">
         <a-entity gesture-handler>
-          <a-cone
-            id="obj-kerucut"
-            class="clickable"
-            position="0 0.5 0"
-            radius-bottom="0.6"
-            height="1.2"
-            color="#F44336"
-            opacity="0.8"
-            onclick="toggleNet('kerucut')"
-          >
-            <a-cone
-              radius-bottom="0.61"
-              height="1.21"
-              material="wireframe: true; color: white"
-            ></a-cone>
-            
-            <a-circle
-              class="h-sisi"
-              position="0 -0.61 0"
-              rotation="90 0 0"
-              radius="0.6"
-              color="yellow"
-              visible="false"
-            ></a-circle>
-
-            <a-cone
-              id="vol-kerucut"
-              position="0 -0.6 0"
-              radius-bottom="0.58"
-              height="1.2"
-              color="#EF5350"
-              visible="false"
-              scale="1 0 1"
-            ></a-cone>
-          </a-cone>
-
-          <a-entity
-            id="net-kerucut"
-            visible="false"
-            rotation="-90 0 0"
-            class="clickable"
-            onclick="toggleNet('kerucut')"
-          >
+          <a-cone id="obj-kerucut" class="clickable" position="0 0.5 0" radius-bottom="0.6" height="1.2" color="#F44336" opacity="0.8" onclick="toggleNet('kerucut')">
+            <a-cone radius-bottom="0.61" height="1.21" material="wireframe: true; color: white"></a-cone>
+            <a-circle class="h-sisi" position="0 -0.61 0" rotation="90 0 0" radius="0.6" color="yellow" visible="false"></a-circle>
+            <a-cone id="vol-kerucut" position="0 -0.6 0" radius-bottom="0.58" height="1.2" color="#EF5350" visible="false" scale="1 0 1"></a-cone>
+          </a-cylinder>
+          <a-entity id="net-kerucut" visible="false" rotation="-90 0 0" class="clickable" onclick="toggleNet('kerucut')">
             <a-entity position="0 0.2 0">
-              <a-entity
-                geometry="primitive: circle; radius: 1.2; thetaLength: 180"
-                material="color: #F44336; side: double"
-                rotation="0 0 -90"
-              ></a-entity>
-              <a-entity
-                geometry="primitive: circle; radius: 1.21; thetaLength: 180"
-                material="wireframe: true; color: white"
-                rotation="0 0 -90"
-              ></a-entity>
+              <a-entity geometry="primitive: circle; radius: 1.2; thetaLength: 180" material="color: #F44336; side: double" rotation="0 0 -90"></a-entity>
+              <a-entity geometry="primitive: circle; radius: 1.21; thetaLength: 180" material="wireframe: true; color: white" rotation="0 0 -90"></a-entity>
             </a-entity>
-            <a-entity position="0 -0.8 0">
-              <a-circle
-                radius="0.5"
-                color="#F44336"
-                material="side: double"
-              ></a-circle>
-              <a-circle
-                radius="0.5"
-                material="wireframe:true; color:white"
-                scale="1.01 1.01 1"
-              ></a-circle>
-            </a-entity>
+            <a-entity position="0 -0.8 0"><a-circle radius="0.5" color="#F44336" material="side: double"></a-circle><a-circle radius="0.5" material="wireframe:true; color:white" scale="1.01 1.01 1"></a-circle></a-entity>
           </a-entity>
         </a-entity>
       </a-marker>
+
       <a-marker type="pattern" url="markers/pattern-bola.patt" id="marker-bola">
         <a-entity gesture-handler>
-          <a-sphere
-            id="obj-bola"
-            class="clickable"
-            position="0 0.5 0"
-            radius="0.6"
-            color="#9C27B0"
-            opacity="0.8"
-            onclick="toggleNet('bola')"
-          >
-            <a-sphere
-              radius="0.61"
-              material="wireframe: true; color: white"
-            ></a-sphere>
-            <a-sphere
-              class="h-sisi"
-              radius="0.62"
-              color="yellow"
-              opacity="0.4"
-              visible="false"
-            ></a-sphere>
-            <a-sphere
-              id="vol-bola"
-              radius="0.55"
-              color="#BA68C8"
-              opacity="0.6"
-              visible="false"
-            ></a-sphere>
+          <a-sphere id="obj-bola" class="clickable" position="0 0.5 0" radius="0.6" color="#9C27B0" opacity="0.8" onclick="toggleNet('bola')">
+            <a-sphere radius="0.61" material="wireframe: true; color: white"></a-sphere>
+            <a-sphere class="h-sisi" radius="0.62" color="yellow" opacity="0.4" visible="false"></a-sphere>
+            <a-sphere id="vol-bola" radius="0.55" color="#BA68C8" opacity="0.6" visible="false" scale="0 0 0"></a-sphere>
           </a-sphere>
         </a-entity>
       </a-marker>
@@ -547,10 +164,7 @@
         m.addEventListener("markerFound", () => {
           activeMarkerId = m.id;
           infoPanel.style.display = "block";
-          infoPanel.innerHTML =
-            "Marker <strong>" +
-            activeMarkerId.split("-")[1].toUpperCase() +
-            "</strong> ditemukan. Tap objek untuk jaring-jaring.";
+          infoPanel.innerHTML = "Marker <strong>" + activeMarkerId.split("-")[1].toUpperCase() + "</strong> ditemukan. Tap objek untuk jaring-jaring.";
         });
         m.addEventListener("markerLost", () => {
           if (activeMarkerId === m.id) {
@@ -561,42 +175,16 @@
       });
 
       const materi = {
-        "marker-kubus": [
-          "Sisi: 6 persegi sama luas",
-          "Rusuk: 12 sama panjang",
-          "L = 6s²",
-          "V = s³",
-        ],
-        "marker-balok": [
-          "Sisi: 6 (persegi panjang)",
-          "Rusuk: 12 (3 kelompok panjang)",
-          "L = 2(pl + pt + lt)",
-          "V = p × l × t",
-        ],
-        "marker-tabung": [
-          "Sisi: 2 lingkaran & 1 selimut",
-          "Rusuk: 2 (melengkung)",
-          "L = 2πr(r + t)",
-          "V = πr²t",
-        ],
-        "marker-kerucut": [
-          "Sisi: 1 lingkaran & 1 selimut",
-          "Rusuk: 1 (melengkung)",
-          "L = πr(r + s)",
-          "V = 1/3πr²t",
-        ],
-        "marker-bola": [
-          "Sisi: 1 sisi lengkung",
-          "Rusuk: Tidak ada",
-          "L = 4πr²",
-          "V = 4/3πr³",
-        ],
+        "marker-kubus": ["Sisi: 6 persegi sama luas", "Rusuk: 12 sama panjang", "L = 6s²", "V = s³"],
+        "marker-balok": ["Sisi: 6 (persegi panjang)", "Rusuk: 12 (3 kelompok panjang)", "L = 2(pl + pt + lt)", "V = p × l × t"],
+        "marker-tabung": ["Sisi: 2 lingkaran & 1 selimut", "Rusuk: 2 (melengkung)", "L = 2πr(r + t)", "V = πr²t"],
+        "marker-kerucut": ["Sisi: 1 lingkaran & 1 selimut", "Rusuk: 1 (melengkung)", "L = πr(r + s)", "V = 1/3πr²t"],
+        "marker-bola": ["Sisi: 1 sisi lengkung", "Rusuk: Tidak ada", "L = 4πr²", "V = 4/3πr³"],
       };
 
       function toggleNet(type) {
         if (type === "bola") {
-          infoPanel.innerHTML =
-            "<strong>INFO:</strong> Bola tidak memiliki jaring-jaring datar.";
+          infoPanel.innerHTML = "<strong>INFO:</strong> Bola tidak memiliki jaring-jaring datar.";
           return;
         }
         const solid = document.getElementById("obj-" + type);
@@ -605,9 +193,7 @@
 
         solid.setAttribute("visible", !isVisible);
         net.setAttribute("visible", isVisible);
-        infoPanel.innerHTML = isVisible
-          ? "Mode: <strong>Jaring-jaring</strong>"
-          : "Mode: <strong>Bangun Ruang</strong>";
+        infoPanel.innerHTML = isVisible ? "Mode: <strong>Jaring-jaring</strong>" : "Mode: <strong>Bangun Ruang</strong>";
       }
 
       function handleInteraction(num) {
@@ -621,13 +207,11 @@
         const sisiAnimKubus = markerEl.querySelector("#sisi-anim-kubus");
         const genericSisi = markerEl.querySelector(".h-sisi");
 
-        // Reset
         if (volObj) volObj.setAttribute("visible", false);
         if (sisiAnimKubus) sisiAnimKubus.setAttribute("visible", false);
         if (genericSisi) genericSisi.setAttribute("visible", false);
         if (mainObj) mainObj.setAttribute("opacity", 0.8);
 
-        // Sisi (Nomor 1)
         if (num === 1) {
           if (activeMarkerId === "marker-kubus" && sisiAnimKubus) {
             sisiAnimKubus.setAttribute("visible", true);
@@ -636,43 +220,35 @@
           }
         }
 
-        // Volume (Nomor 4)
         if (num === 4 && volObj) {
             mainObj.setAttribute("opacity", 0.2);
             volObj.setAttribute("visible", true);
-
-            // Reset animasi agar bisa diulang
             volObj.removeAttribute("animation__scale");
             volObj.removeAttribute("animation__pos");
 
             let fromScale, toScale, fromPos, toPos;
 
-            // Logika spesifik per bangun ruang
             if (activeMarkerId === "marker-kubus") {
                 fromScale = "0.98 0 0.98"; toScale = "0.98 0.98 0.98";
                 fromPos = "0 -0.5 0"; toPos = "0 0 0";
             } 
             else if (activeMarkerId === "marker-balok") {
-                fromScale = "1.45 0 0.75"; toScale = "1.45 0.6 0.75";
+                fromScale = "1 0 1"; toScale = "1 1 1";
                 fromPos = "0 -0.3 0"; toPos = "0 0 0";
             }
             else if (activeMarkerId === "marker-tabung") {
-                // Tabung tinggi 1.2, radius 0.48
                 fromScale = "1 0 1"; toScale = "1 1 1";
                 fromPos = "0 -0.6 0"; toPos = "0 0 0";
             }
             else if (activeMarkerId === "marker-kerucut") {
-                // Kerucut animasi scale saja dari bawah
                 fromScale = "1 0 1"; toScale = "1 1 1";
                 fromPos = "0 -0.6 0"; toPos = "0 0 0";
             }
             else if (activeMarkerId === "marker-bola") {
-                // Bola tidak pake scale tinggi, tapi membesar (pulsing)
                 fromScale = "0 0 0"; toScale = "1 1 1";
                 fromPos = "0 0 0"; toPos = "0 0 0";
             }
 
-            // Jalankan Animasi Scale
             volObj.setAttribute("animation__scale", {
                 property: "scale",
                 from: fromScale,
@@ -681,7 +257,6 @@
                 easing: "easeInOutQuad",
             });
 
-            // Jalankan Animasi Posisi
             volObj.setAttribute("animation__pos", {
                 property: "position",
                 from: fromPos,
