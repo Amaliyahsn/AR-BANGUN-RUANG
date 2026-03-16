@@ -28,111 +28,135 @@
 
 <body style="margin:0; overflow:hidden">
 
-    <div id="info-panel">Klik angka untuk visualisasi bagian kubus</div>
+    <div id="info-panel">Arahkan kamera ke marker bangun ruang</div>
 
     <div class="ui-container">
-        <button class="btn-info" onclick="showInfo(1)">1</button>
-        <button class="btn-info" onclick="showInfo(2)">2</button>
-        <button class="btn-info" onclick="showInfo(3)">3</button>
-        <button class="btn-info" onclick="showInfo(4)">4</button>
+        <button class="btn-info" onclick="handleInteraction(1)">1</button>
+        <button class="btn-info" onclick="handleInteraction(2)">2</button>
+        <button class="btn-info" onclick="handleInteraction(3)">3</button>
+        <button class="btn-info" onclick="handleInteraction(4)">4</button>
     </div>
 
     <a-scene embedded vr-mode-ui="enabled:false" gesture-detector
              arjs="sourceType:webcam; facingMode:environment; debugUIEnabled: false;"
              cursor="rayOrigin: mouse" raycaster="objects: .clickable">
 
-        <a-marker type="pattern" url="markers/pattern-kubus.patt">
-            <a-entity id="mainGroup" gesture-handler>
-                
-                <a-entity id="cubeGroup" visible="true">
-                    <a-box id="mainCube" class="clickable" onclick="toggleShape()" color="#00ACC1" opacity="0.8">
-                        <a-box scale="1.002 1.002 1.002" material="wireframe: true; color: white"></a-box>
-                    </a-box>
-                    <a-plane id="mark-sisi-cube" position="0 0 0.51" width="0.8" height="0.8" color="yellow" opacity="0.6" visible="false"></a-plane>
-                    <a-entity id="mark-rusuk-cube" visible="false">
-                        <a-sphere position="0.5 0.5 0.5" radius="0.06" color="yellow"></a-sphere>
-                        <a-sphere position="-0.5 0.5 0.5" radius="0.06" color="yellow"></a-sphere>
-                        <a-sphere position="0.5 -0.5 0.5" radius="0.06" color="yellow"></a-sphere>
-                        <a-sphere position="-0.5 -0.5 0.5" radius="0.06" color="yellow"></a-sphere>
-                    </a-entity>
-                    <a-box id="mark-vol-cube" position="0 -0.5 0" scale="0.95 0 0.95" color="#4DD0E1" opacity="0.6" visible="false"></a-box>
-                </a-entity>
-
-                <a-entity id="cubeNet" visible="false">
-                    <a-entity rotation="-90 0 0">
-                        <a-entity position="0 0 0" class="clickable" onclick="toggleShape()">
-                            <a-plane id="net-plane-1" color="#00ACC1"></a-plane>
-                            <a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box>
-                            <a-entity class="net-dots" visible="false">
-                                <a-sphere position="0.5 0.5 0.05" radius="0.05" color="yellow"></a-sphere>
-                                <a-sphere position="-0.5 0.5 0.05" radius="0.05" color="yellow"></a-sphere>
-                                <a-sphere position="0.5 -0.5 0.05" radius="0.05" color="yellow"></a-sphere>
-                                <a-sphere position="-0.5 -0.5 0.05" radius="0.05" color="yellow"></a-sphere>
-                            </a-entity>
-                        </a-entity>
-                        <a-entity position="1 0 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="-1 0 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="0 1 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="0 -1 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="2 0 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                    </a-entity>
-                </a-entity>
-
+        <a-marker type="pattern" url="markers/pattern-Balok.patt" id="marker-balok">
+            <a-entity class="mainGroup" gesture-handler>
+                <a-box id="balok" class="clickable" scale="1.2 0.6 0.6" color="#4CAF50" opacity="0.8">
+                    <a-box scale="1.01 1.01 1.01" material="wireframe: true; color: white"></a-box>
+                    <a-plane class="h-sisi" position="0 0 0.51" width="0.9" height="0.9" color="yellow" visible="false"></a-plane>
+                    <a-box class="h-vol" position="0 -0.5 0" scale="0.95 0 0.95" color="#81C784" visible="false"></a-box>
+                </a-box>
             </a-entity>
         </a-marker>
+
+        <a-marker type="pattern" url="markers/pattern-Tabung.patt" id="marker-tabung">
+            <a-entity class="mainGroup" gesture-handler>
+                <a-cylinder id="tabung" class="clickable" radius="0.5" height="1" color="#FF9800" opacity="0.8">
+                    <a-cylinder radius="0.505" height="1.005" material="wireframe: true; color: white"></a-cylinder>
+                    <a-cylinder class="h-vol" position="0 -0.5 0" radius="0.48" height="0" color="#FFB74D" visible="false"></a-cylinder>
+                </a-cylinder>
+            </a-entity>
+        </a-marker>
+
+        <a-marker type="pattern" url="markers/pattern-Kerucut.patt" id="marker-kerucut">
+            <a-entity class="mainGroup" gesture-handler>
+                <a-cone id="kerucut" class="clickable" radius-bottom="0.5" height="1" color="#F44336" opacity="0.8">
+                    <a-cone radius-bottom="0.505" height="1.005" material="wireframe: true; color: white"></a-cone>
+                    <a-cone class="h-vol" position="0 -0.5 0" radius-bottom="0.48" height="0" color="#EF5350" visible="false"></a-cone>
+                </a-cone>
+            </a-entity>
+        </a-marker>
+
+        <a-marker type="pattern" url="markers/pattern-bola.patt" id="marker-bola">
+            <a-entity class="mainGroup" gesture-handler>
+                <a-sphere id="bola" class="clickable" radius="0.6" color="#9C27B0" opacity="0.8">
+                    <a-sphere radius="0.605" material="wireframe: true; color: white"></a-sphere>
+                    <a-sphere class="h-vol" radius="0.55" color="#BA68C8" opacity="0.6" visible="false"></a-sphere>
+                </a-sphere>
+            </a-entity>
+        </a-marker>
+
         <a-entity camera></a-entity>
     </a-scene>
 
     <script>
         const infoPanel = document.getElementById('info-panel');
-        const cubeGroup = document.getElementById('cubeGroup');
-        const cubeNet = document.getElementById('cubeNet');
-        const mainCube = document.getElementById('mainCube');
+        let activeMarkerId = "";
 
-        function showInfo(num) {
-            const isNet = cubeNet.getAttribute('visible');
+        // Deteksi marker mana yang sedang terlihat
+        document.querySelectorAll('a-marker').forEach(marker => {
+            marker.addEventListener('markerFound', () => { activeMarkerId = marker.id; });
+            marker.addEventListener('markerLost', () => { activeMarkerId = ""; infoPanel.style.display = 'none'; });
+        });
+
+        const bangunData = {
+            "marker-balok": {
+                name: "Balok",
+                info: [
+                    "<strong>Sisi</strong>: Memiliki 6 sisi (3 pasang persegi panjang kongruen).",
+                    "<strong>Rusuk/Sudut</strong>: 12 rusuk dan 8 titik sudut.",
+                    "<strong>Luas Permukaan</strong>: L = 2 × (pl + pt + lt).",
+                    "<strong>Volume</strong>: V = p × l × t."
+                ]
+            },
+            "marker-tabung": {
+                name: "Tabung",
+                info: [
+                    "<strong>Alas & Tutup</strong>: 2 lingkaran sejajar yang identik.",
+                    "<strong>Selimut</strong>: Sisi lengkung yang menghubungkan alas dan tutup.",
+                    "<strong>Luas</strong>: L = 2πr(r + t).",
+                    "<strong>Volume</strong>: V = πr²t."
+                ]
+            },
+            "marker-kerucut": {
+                name: "Kerucut",
+                info: [
+                    "<strong>Alas</strong>: 1 bidang lingkaran.",
+                    "<strong>Titik Puncak</strong>: Memiliki 1 titik puncak di bagian atas.",
+                    "<strong>Luas</strong>: L = πr(r + s).",
+                    "<strong>Volume</strong>: V = 1/3 × πr²t."
+                ]
+            },
+            "marker-bola": {
+                name: "Bola",
+                info: [
+                    "<strong>Sisi</strong>: Hanya memiliki 1 sisi lengkung.",
+                    "<strong>Karakteristik</strong>: Tidak memiliki rusuk dan tidak memiliki titik sudut.",
+                    "<strong>Luas</strong>: L = 4πr².",
+                    "<strong>Volume</strong>: V = 4/3 × πr³."
+                ]
+            }
+        };
+
+        function handleInteraction(num) {
+            if (!activeMarkerId) return;
+
+            const data = bangunData[activeMarkerId];
             infoPanel.style.display = 'block';
-            resetMarkers();
+            infoPanel.innerHTML = `<strong>${data.name}</strong><br>${data.info[num-1]}`;
 
-            if (num === 1) {
-                infoPanel.innerHTML = "<strong>Sisi</strong>: Bidang datar pembentuk kubus. Jaring-jaring terdiri dari 6 sisi.";
-                if(isNet) document.getElementById('net-plane-1').setAttribute('color', 'yellow');
-                else document.getElementById('mark-sisi-cube').setAttribute('visible', true);
-            } 
-            else if (num === 2 || num === 3) {
-                infoPanel.innerHTML = num === 2 ? "<strong>Rusuk</strong>: Pertemuan dua sisi kubus (Garis putih)." : "<strong>Sudut</strong>: Titik pertemuan rusuk (Titik kuning).";
-                if(isNet) document.querySelectorAll('.net-dots').forEach(d => d.setAttribute('visible', true));
-                else document.getElementById('mark-rusuk-cube').setAttribute('visible', true);
-            } 
-            else if (num === 4) {
-                if(isNet) {
-                    infoPanel.innerHTML = "<strong>Volume</strong>: Kapasitas ruang. Rakit jaring-jaring menjadi kubus untuk melihat volume.";
-                } else {
-                    infoPanel.innerHTML = "<strong>Volume</strong>: Isi ruang di dalam kubus (Sisi x Sisi x Sisi).";
-                    mainCube.setAttribute('opacity', 0.2);
-                    const v = document.getElementById('mark-vol-cube');
-                    v.setAttribute('visible', true);
-                    v.setAttribute('animation__fill', {property: 'scale', from: '0.95 0 0.95', to: '0.95 0.95 0.95', dur: 2000});
-                    v.setAttribute('animation__pos', {property: 'position', from: '0 -0.5 0', to: '0 0 0', dur: 2000});
+            // Reset semua visual di marker aktif
+            const currentMarker = document.getElementById(activeMarkerId);
+            const highlighters = currentMarker.querySelectorAll('.h-sisi, .h-vol');
+            const mainShape = currentMarker.querySelector('.clickable');
+
+            highlighters.forEach(h => h.setAttribute('visible', false));
+            mainShape.setAttribute('opacity', 0.8);
+
+            // Visualisasi Volume (Nomor 4)
+            if (num === 4) {
+                mainShape.setAttribute('opacity', 0.3);
+                const vol = currentMarker.querySelector('.h-vol');
+                if (vol) {
+                    vol.setAttribute('visible', true);
+                    // Animasi isi (khusus kotak/tabung/kerucut)
+                    if (activeMarkerId !== "marker-bola") {
+                        vol.setAttribute('animation', {property: 'scale', from: '0.95 0 0.95', to: '0.95 0.95 0.95', dur: 2000});
+                    }
                 }
             }
-        }
-
-        function resetMarkers() {
-            document.getElementById('mark-sisi-cube').setAttribute('visible', false);
-            document.getElementById('mark-rusuk-cube').setAttribute('visible', false);
-            document.getElementById('mark-vol-cube').setAttribute('visible', false);
-            document.getElementById('net-plane-1').setAttribute('color', '#00ACC1');
-            document.querySelectorAll('.net-dots').forEach(d => d.setAttribute('visible', false));
-            mainCube.setAttribute('opacity', 0.8);
-        }
-
-        function toggleShape() {
-            const isCube = cubeGroup.getAttribute('visible');
-            cubeGroup.setAttribute('visible', !isCube);
-            cubeNet.setAttribute('visible', isCube);
-            resetMarkers();
-            infoPanel.style.display = 'none';
         }
     </script>
 </body>
