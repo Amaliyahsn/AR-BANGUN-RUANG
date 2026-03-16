@@ -28,7 +28,7 @@
 
 <body style="margin:0; overflow:hidden">
 
-    <div id="info-panel">Arahkan kamera ke marker bangun ruang</div>
+    <div id="info-panel">Arahkan kamera ke marker</div>
 
     <div class="ui-container">
         <button class="btn-info" onclick="handleInteraction(1)">1</button>
@@ -41,39 +41,46 @@
              arjs="sourceType:webcam; facingMode:environment; debugUIEnabled: false;"
              cursor="rayOrigin: mouse" raycaster="objects: .clickable">
 
-        <a-marker type="pattern" url="markers/pattern-Balok.patt" id="marker-balok">
-            <a-entity class="mainGroup" gesture-handler>
-                <a-box id="balok" class="clickable" scale="1.2 0.6 0.6" color="#4CAF50" opacity="0.8">
+        <a-marker type="pattern" url="markers/pattern-kubus.patt" id="marker-kubus" class="marker-class">
+            <a-entity gesture-handler>
+                <a-box id="obj-kubus" class="clickable" position="0 0.5 0" color="blue" opacity="0.8">
                     <a-box scale="1.01 1.01 1.01" material="wireframe: true; color: white"></a-box>
-                    <a-plane class="h-sisi" position="0 0 0.51" width="0.9" height="0.9" color="yellow" visible="false"></a-plane>
+                    <a-box class="h-vol" position="0 -0.5 0" scale="0.95 0 0.95" color="#4DD0E1" visible="false"></a-box>
+                </a-box>
+            </a-entity>
+        </a-marker>
+
+        <a-marker type="pattern" url="markers/pattern-Balok.patt" id="marker-balok" class="marker-class">
+            <a-entity gesture-handler>
+                <a-box id="obj-balok" class="clickable" position="0 0.5 0" depth="1.5" height="0.5" width="1" color="green" opacity="0.8">
+                    <a-box scale="1.01 1.01 1.01" material="wireframe: true; color: white"></a-box>
                     <a-box class="h-vol" position="0 -0.5 0" scale="0.95 0 0.95" color="#81C784" visible="false"></a-box>
                 </a-box>
             </a-entity>
         </a-marker>
 
-        <a-marker type="pattern" url="markers/pattern-Tabung.patt" id="marker-tabung">
-            <a-entity class="mainGroup" gesture-handler>
-                <a-cylinder id="tabung" class="clickable" radius="0.5" height="1" color="#FF9800" opacity="0.8">
-                    <a-cylinder radius="0.505" height="1.005" material="wireframe: true; color: white"></a-cylinder>
-                    <a-cylinder class="h-vol" position="0 -0.5 0" radius="0.48" height="0" color="#FFB74D" visible="false"></a-cylinder>
+        <a-marker type="pattern" url="markers/pattern-Tabung.patt" id="marker-tabung" class="marker-class">
+            <a-entity gesture-handler>
+                <a-cylinder id="obj-tabung" class="clickable" position="0 0.5 0" radius="0.4" height="1" color="orange" opacity="0.8">
+                    <a-cylinder radius="0.405" height="1.005" material="wireframe: true; color: white"></a-cylinder>
+                    <a-cylinder class="h-vol" position="0 -0.5 0" radius="0.38" height="0" color="#FFB74D" visible="false"></a-cylinder>
                 </a-cylinder>
             </a-entity>
         </a-marker>
 
-        <a-marker type="pattern" url="markers/pattern-Kerucut.patt" id="marker-kerucut">
-            <a-entity class="mainGroup" gesture-handler>
-                <a-cone id="kerucut" class="clickable" radius-bottom="0.5" height="1" color="#F44336" opacity="0.8">
+        <a-marker type="pattern" url="markers/pattern-Kerucut.patt" id="marker-kerucut" class="marker-class">
+            <a-entity gesture-handler>
+                <a-cone id="obj-kerucut" class="clickable" position="0 0.5 0" radius-bottom="0.5" height="1" color="red" opacity="0.8">
                     <a-cone radius-bottom="0.505" height="1.005" material="wireframe: true; color: white"></a-cone>
                     <a-cone class="h-vol" position="0 -0.5 0" radius-bottom="0.48" height="0" color="#EF5350" visible="false"></a-cone>
-                </a-cone>
-            </a-entity>
-        </a-marker>
+                </a-entity>
+            </a-marker>
 
-        <a-marker type="pattern" url="markers/pattern-bola.patt" id="marker-bola">
-            <a-entity class="mainGroup" gesture-handler>
-                <a-sphere id="bola" class="clickable" radius="0.6" color="#9C27B0" opacity="0.8">
-                    <a-sphere radius="0.605" material="wireframe: true; color: white"></a-sphere>
-                    <a-sphere class="h-vol" radius="0.55" color="#BA68C8" opacity="0.6" visible="false"></a-sphere>
+        <a-marker type="pattern" url="markers/pattern-bola.patt" id="marker-bola" class="marker-class">
+            <a-entity gesture-handler>
+                <a-sphere id="obj-bola" class="clickable" position="0 0.5 0" radius="0.5" color="purple" opacity="0.8">
+                    <a-sphere radius="0.505" material="wireframe: true; color: white"></a-sphere>
+                    <a-sphere class="h-vol" radius="0.45" color="#BA68C8" opacity="0.6" visible="false"></a-sphere>
                 </a-sphere>
             </a-entity>
         </a-marker>
@@ -85,76 +92,47 @@
         const infoPanel = document.getElementById('info-panel');
         let activeMarkerId = "";
 
-        // Deteksi marker mana yang sedang terlihat
-        document.querySelectorAll('a-marker').forEach(marker => {
-            marker.addEventListener('markerFound', () => { activeMarkerId = marker.id; });
-            marker.addEventListener('markerLost', () => { activeMarkerId = ""; infoPanel.style.display = 'none'; });
+        // Fungsi pendeteksi marker aktif
+        document.querySelectorAll('.marker-class').forEach(marker => {
+            marker.addEventListener('markerFound', () => { 
+                activeMarkerId = marker.id;
+                infoPanel.style.display = 'block';
+                infoPanel.innerHTML = "Marker terdeteksi! Klik angka untuk detail.";
+            });
+            marker.addEventListener('markerLost', () => { 
+                activeMarkerId = ""; 
+                infoPanel.style.display = 'none'; 
+            });
         });
 
-        const bangunData = {
-            "marker-balok": {
-                name: "Balok",
-                info: [
-                    "<strong>Sisi</strong>: Memiliki 6 sisi (3 pasang persegi panjang kongruen).",
-                    "<strong>Rusuk/Sudut</strong>: 12 rusuk dan 8 titik sudut.",
-                    "<strong>Luas Permukaan</strong>: L = 2 × (pl + pt + lt).",
-                    "<strong>Volume</strong>: V = p × l × t."
-                ]
-            },
-            "marker-tabung": {
-                name: "Tabung",
-                info: [
-                    "<strong>Alas & Tutup</strong>: 2 lingkaran sejajar yang identik.",
-                    "<strong>Selimut</strong>: Sisi lengkung yang menghubungkan alas dan tutup.",
-                    "<strong>Luas</strong>: L = 2πr(r + t).",
-                    "<strong>Volume</strong>: V = πr²t."
-                ]
-            },
-            "marker-kerucut": {
-                name: "Kerucut",
-                info: [
-                    "<strong>Alas</strong>: 1 bidang lingkaran.",
-                    "<strong>Titik Puncak</strong>: Memiliki 1 titik puncak di bagian atas.",
-                    "<strong>Luas</strong>: L = πr(r + s).",
-                    "<strong>Volume</strong>: V = 1/3 × πr²t."
-                ]
-            },
-            "marker-bola": {
-                name: "Bola",
-                info: [
-                    "<strong>Sisi</strong>: Hanya memiliki 1 sisi lengkung.",
-                    "<strong>Karakteristik</strong>: Tidak memiliki rusuk dan tidak memiliki titik sudut.",
-                    "<strong>Luas</strong>: L = 4πr².",
-                    "<strong>Volume</strong>: V = 4/3 × πr³."
-                ]
-            }
+        const dataMateri = {
+            "marker-kubus": ["6 sisi persegi identik", "12 rusuk sama panjang", "L = 6s²", "V = s³"],
+            "marker-balok": ["6 sisi (3 pasang persegi panjang)", "12 rusuk & 8 titik sudut", "L = 2(pl+pt+lt)", "V = p×l×t"],
+            "marker-tabung": ["Alas & Tutup lingkaran sejajar", "Memiliki 1 sisi selimut", "L = 2πr(r+t)", "V = πr²t"],
+            "marker-kerucut": ["Alas lingkaran & 1 titik puncak", "Memiliki garis pelukis (s)", "L = πr(r+s)", "V = 1/3πr²t"],
+            "marker-bola": ["Dibatasi 1 sisi lengkung", "Tidak punya rusuk/titik sudut", "L = 4πr²", "V = 4/3πr³"]
         };
 
         function handleInteraction(num) {
             if (!activeMarkerId) return;
 
-            const data = bangunData[activeMarkerId];
-            infoPanel.style.display = 'block';
-            infoPanel.innerHTML = `<strong>${data.name}</strong><br>${data.info[num-1]}`;
+            const materi = dataMateri[activeMarkerId];
+            infoPanel.innerHTML = `<strong>${activeMarkerId.replace('marker-', '').toUpperCase()}</strong><br>${materi[num-1]}`;
 
-            // Reset semua visual di marker aktif
             const currentMarker = document.getElementById(activeMarkerId);
-            const highlighters = currentMarker.querySelectorAll('.h-sisi, .h-vol');
-            const mainShape = currentMarker.querySelector('.clickable');
+            const mainObj = currentMarker.querySelector('.clickable');
+            const volObj = currentMarker.querySelector('.h-vol');
 
-            highlighters.forEach(h => h.setAttribute('visible', false));
-            mainShape.setAttribute('opacity', 0.8);
+            // Reset
+            volObj.setAttribute('visible', false);
+            mainObj.setAttribute('opacity', 0.8);
 
-            // Visualisasi Volume (Nomor 4)
+            // Animasi Volume (Tombol 4)
             if (num === 4) {
-                mainShape.setAttribute('opacity', 0.3);
-                const vol = currentMarker.querySelector('.h-vol');
-                if (vol) {
-                    vol.setAttribute('visible', true);
-                    // Animasi isi (khusus kotak/tabung/kerucut)
-                    if (activeMarkerId !== "marker-bola") {
-                        vol.setAttribute('animation', {property: 'scale', from: '0.95 0 0.95', to: '0.95 0.95 0.95', dur: 2000});
-                    }
+                mainObj.setAttribute('opacity', 0.2);
+                volObj.setAttribute('visible', true);
+                if (activeMarkerId !== "marker-bola") {
+                    volObj.setAttribute('animation', {property: 'scale', from: '0.95 0 0.95', to: '0.95 0.95 0.95', dur: 2000});
                 }
             }
         }
