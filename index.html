@@ -16,56 +16,76 @@
 
         <a-marker type="pattern" url="markers/pattern-kubus.patt">
             
-            <a-entity id="mainGroup" rotation="0 0 0">
+            <a-entity id="mainGroup">
                 
-                <a-entity id="cubeGroup" visible="true">
+                <a-entity id="cubeGroup">
                     <a-box 
                         id="cube" 
                         class="clickable"
-                        color="red" 
+                        color="#EF2D5E" 
                         scale="1 1 1"
-                        material="opacity: 0.9;">
+                        material="opacity: 0.8;">
                     </a-box>
 
-                    <a-entity id="p1" class="clickable" position="0.51 0.3 0" rotation="0 90 0">
+                    <a-entity id="p1" class="clickable" position="0.8 0.6 0.8">
                         <a-circle color="black" radius="0.1"></a-circle>
-                        <a-text value="1" color="white" align="center" position="0 0 0.01" width="3"></a-text>
+                        <a-text value="1" color="white" align="center" width="3"></a-text>
+                        <a-entity line="start: 0 0 0; end: -0.3 -0.1 -0.3; color: black"></a-entity>
                     </a-entity>
 
-                    <a-entity id="p2" class="clickable" position="-0.51 0.3 0" rotation="0 -90 0">
+                    <a-entity id="p2" class="clickable" position="-0.8 0.6 0.8">
                         <a-circle color="black" radius="0.1"></a-circle>
-                        <a-text value="2" color="white" align="center" position="0 0 0.01" width="3"></a-text>
+                        <a-text value="2" color="white" align="center" width="3"></a-text>
+                        <a-entity line="start: 0 0 0; end: 0.3 -0.1 -0.3; color: black"></a-entity>
                     </a-entity>
 
-                    <a-entity id="p3" class="clickable" position="0 0.3 0.51">
+                    <a-entity id="p3" class="clickable" position="0.8 -0.4 0.8">
                         <a-circle color="black" radius="0.1"></a-circle>
-                        <a-text value="3" color="white" align="center" position="0 0 0.01" width="3"></a-text>
+                        <a-text value="3" color="white" align="center" width="3"></a-text>
+                        <a-entity line="start: 0 0 0; end: -0.3 0.9 -0.3; color: black"></a-entity>
                     </a-entity>
 
-                    <a-entity id="p4" class="clickable" position="0 0.51 0" rotation="-90 0 0">
+                    <a-entity id="p4" class="clickable" position="0 1.2 0">
                         <a-circle color="black" radius="0.1"></a-circle>
-                        <a-text value="4" color="white" align="center" position="0 0 0.01" width="3"></a-text>
+                        <a-text value="4" color="white" align="center" width="3"></a-text>
+                        <a-entity line="start: 0 0 0; end: 0 -0.7 0; color: black"></a-entity>
                     </a-entity>
                 </a-entity>
 
                 <a-entity id="cubeNet" visible="false">
-                    <a-plane position="0 0 0" rotation="-90 0 0" class="clickable" color="#4CC3D9" stroke="white"></a-plane>
-                    <a-plane position="1 0 0" rotation="-90 0 0" class="clickable" color="#4CC3D9"></a-plane>
-                    <a-plane position="-1 0 0" rotation="-90 0 0" class="clickable" color="#4CC3D9"></a-plane>
-                    <a-plane position="0 0 1" rotation="-90 0 0" class="clickable" color="#4CC3D9"></a-plane>
-                    <a-plane position="0 0 -1" rotation="-90 0 0" class="clickable" color="#4CC3D9"></a-plane>
-                    <a-plane position="2 0 0" rotation="-90 0 0" class="clickable" color="#4CC3D9"></a-plane>
+                    <a-plane position="0 0 0" rotation="-90 0 0" class="clickable" color="#4CC3D9" material="wireframe: false">
+                        <a-entity line="start: -0.5 -0.5 0.01; end: 0.5 -0.5 0.01; color: white"></a-entity>
+                        <a-entity line="start: 0.5 -0.5 0.01; end: 0.5 0.5 0.01; color: white"></a-entity>
+                        <a-entity line="start: 0.5 0.5 0.01; end: -0.5 0.5 0.01; color: white"></a-entity>
+                        <a-entity line="start: -0.5 0.5 0.01; end: -0.5 -0.5 0.01; color: white"></a-entity>
+                    </a-plane>
+                    
+                    <a-plane position="1 0 0" rotation="-90 0 0" class="clickable" color="#4CC3D9">
+                        <a-box scale="1 1 0.01" material="wireframe: true; color: white"></a-box>
+                    </a-plane>
+                    <a-plane position="-1 0 0" rotation="-90 0 0" class="clickable" color="#4CC3D9">
+                        <a-box scale="1 1 0.01" material="wireframe: true; color: white"></a-box>
+                    </a-plane>
+                    <a-plane position="0 0 1" rotation="-90 0 0" class="clickable" color="#4CC3D9">
+                        <a-box scale="1 1 0.01" material="wireframe: true; color: white"></a-box>
+                    </a-plane>
+                    <a-plane position="0 0 -1" rotation="-90 0 0" class="clickable" color="#4CC3D9">
+                        <a-box scale="1 1 0.01" material="wireframe: true; color: white"></a-box>
+                    </a-plane>
+                    <a-plane position="2 0 0" rotation="-90 0 0" class="clickable" color="#4CC3D9">
+                        <a-box scale="1 1 0.01" material="wireframe: true; color: white"></a-box>
+                    </a-plane>
                 </a-entity>
 
             </a-entity>
 
             <a-text 
                 id="infoText" 
-                value="Klik angka untuk info\nKlik bangun untuk ubah bentuk" 
+                value="Klik angka untuk detail informasi" 
                 align="center" 
-                position="0 2 0" 
-                width="4" 
-                color="yellow">
+                position="0 1.3 0.5" 
+                width="3.5" 
+                color="#FFF">
             </a-text>
 
         </a-marker>
@@ -75,10 +95,10 @@
 
     <script>
         const infoData = {
-            p1: "Kubus adalah bangun ruang dengan 6 sisi persegi yang kongruen.",
-            p2: "Memiliki 12 rusuk sama panjang dan 8 titik sudut.",
-            p3: "Rumus Luas Permukaan: L = 6 x s²",
-            p4: "Rumus Volume: V = s³"
+            p1: "Kubus adalah bangun ruang 3D yang memiliki 6 sisi persegi.",
+            p2: "Sifat Kubus: 12 Rusuk sama panjang & 8 Titik Sudut.",
+            p3: "Rumus Luas Permukaan: 6 x (sisi x sisi).",
+            p4: "Rumus Volume: sisi x sisi x sisi (s³)."
         };
 
         const cubeGroup = document.getElementById("cubeGroup");
@@ -86,50 +106,48 @@
         const infoText = document.getElementById("infoText");
         const mainGroup = document.getElementById("mainGroup");
 
-        // --- Logika Klik Info ---
+        // --- Logika Klik Angka ---
         ["p1", "p2", "p3", "p4"].forEach(id => {
             document.getElementById(id).addEventListener("click", (e) => {
-                e.stopPropagation(); // Agar tidak mentrigger klik pada kubus
+                // Berhenti agar tidak klik kubus di belakangnya
+                e.stopPropagation(); 
                 infoText.setAttribute("value", infoData[id]);
+                infoText.setAttribute("color", "#FFD700"); // Berubah kuning saat diklik
             });
         });
 
-        // --- Logika Ganti Bentuk (Kubus <-> Jaring) ---
-        // Kita pasang event di kubus dan bagian jaring-jaring
+        // --- Logika Klik Kubus/Jaring (Ganti Bentuk) ---
+        // Klik di badan kubus atau di salah satu plane jaring-jaring
         document.querySelectorAll('.clickable').forEach(el => {
             el.addEventListener('click', (e) => {
-                if(el.id === "cube" || el.parentNode.id === "cubeNet") {
+                if(el.id === "cube" || el.parentNode.id === "cubeNet" || el.id.startsWith('p') === false) {
                     const isCubeVisible = cubeGroup.getAttribute("visible");
                     cubeGroup.setAttribute("visible", !isCubeVisible);
                     cubeNet.setAttribute("visible", isCubeVisible);
                     infoText.setAttribute("value", isCubeVisible ? "Bentuk: Jaring-jaring" : "Bentuk: Kubus");
+                    infoText.setAttribute("color", "white");
                 }
             });
         });
 
-        // --- Logika Putar (Drag) ---
-        let isSown = false;
+        // --- Fitur Putar (Touch & Mouse) ---
+        let isDragging = false;
         let lastX;
 
-        document.addEventListener("mousedown", e => { isSown = true; lastX = e.clientX; });
-        document.addEventListener("touchstart", e => { isSown = true; lastX = e.touches[0].clientX; });
+        const startDragging = (x) => { isDragging = true; lastX = x; };
+        const stepDragging = (x) => {
+            if (!isDragging) return;
+            let dx = x - lastX;
+            mainGroup.object3D.rotation.y += dx * 0.01;
+            lastX = x;
+        };
 
-        document.addEventListener("mousemove", e => {
-            if (!isSown) return;
-            let deltaX = e.clientX - lastX;
-            mainGroup.object3D.rotation.y += deltaX * 0.01;
-            lastX = e.clientX;
-        });
-
-        document.addEventListener("touchmove", e => {
-            if (!isSown) return;
-            let deltaX = e.touches[0].clientX - lastX;
-            mainGroup.object3D.rotation.y += deltaX * 0.01;
-            lastX = e.touches[0].clientX;
-        });
-
-        window.addEventListener("mouseup", () => isSown = false);
-        window.addEventListener("touchend", () => isSown = false);
+        document.addEventListener("mousedown", e => startDragging(e.clientX));
+        document.addEventListener("touchstart", e => startDragging(e.touches[0].clientX));
+        document.addEventListener("mousemove", e => stepDragging(e.clientX));
+        document.addEventListener("touchmove", e => stepDragging(e.touches[0].clientX));
+        window.addEventListener("mouseup", () => isDragging = false);
+        window.addEventListener("touchend", () => isDragging = false);
 
     </script>
 </body>
