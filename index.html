@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
 
+<head>
 <meta charset="utf-8">
 
 <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
@@ -18,9 +18,11 @@ arjs="sourceType:webcam; facingMode:environment">
 
 <a-marker type="pattern" url="markers/pattern-kubus.patt">
 
-<!-- ================= KUBUS ================= -->
+<!-- ================= GROUP KUBUS ================= -->
 
 <a-entity id="cubeGroup" position="0 0.5 0">
+
+<!-- KUBUS -->
 
 <a-box
 id="cube"
@@ -28,48 +30,48 @@ color="red"
 scale="0.8 0.8 0.8">
 </a-box>
 
-</a-entity>
 
+<!-- TITIK INFO -->
 
-<!-- ================= JARING-JARING ================= -->
-
-<a-entity id="cubeNet" visible="false" position="0 0.1 0">
-
-<a-plane position="0 0 0" rotation="-90 0 0" width="1" height="1" color="#4CC3D9"></a-plane>
-
-<a-plane position="1 0 0" rotation="-90 0 0" width="1" height="1" color="#4CC3D9"></a-plane>
-
-<a-plane position="-1 0 0" rotation="-90 0 0" width="1" height="1" color="#4CC3D9"></a-plane>
-
-<a-plane position="0 0 1" rotation="-90 0 0" width="1" height="1" color="#4CC3D9"></a-plane>
-
-<a-plane position="0 0 -1" rotation="-90 0 0" width="1" height="1" color="#4CC3D9"></a-plane>
-
-<a-plane position="2 0 0" rotation="-90 0 0" width="1" height="1" color="#4CC3D9"></a-plane>
-
-</a-entity>
-
-
-<!-- ================= TITIK INFO ================= -->
-
-<a-entity id="p1" position="0.7 0.7 0.7">
-<a-circle color="black" radius="0.08"></a-circle>
+<a-entity id="p1" position="0.6 0.6 0.6">
+<a-circle radius="0.08" color="black"></a-circle>
 <a-text value="1" color="white" align="center" position="0 0 0.01"></a-text>
 </a-entity>
 
-<a-entity id="p2" position="-0.7 0.7 0.7">
-<a-circle color="black" radius="0.08"></a-circle>
+<a-entity id="p2" position="-0.6 0.6 0.6">
+<a-circle radius="0.08" color="black"></a-circle>
 <a-text value="2" color="white" align="center" position="0 0 0.01"></a-text>
 </a-entity>
 
-<a-entity id="p3" position="0.7 -0.7 0.7">
-<a-circle color="black" radius="0.08"></a-circle>
+<a-entity id="p3" position="0.6 -0.6 0.6">
+<a-circle radius="0.08" color="black"></a-circle>
 <a-text value="3" color="white" align="center" position="0 0 0.01"></a-text>
 </a-entity>
 
-<a-entity id="p4" position="0 1 0">
-<a-circle color="black" radius="0.08"></a-circle>
+<a-entity id="p4" position="0 0.9 0">
+<a-circle radius="0.08" color="black"></a-circle>
 <a-text value="4" color="white" align="center" position="0 0 0.01"></a-text>
+</a-entity>
+
+</a-entity>
+
+
+<!-- ================= JARING JARING ================= -->
+
+<a-entity id="cubeNet" visible="false" position="0 0.2 0">
+
+<a-plane width="1" height="1" rotation="-90 0 0" position="0 0 0" color="#4CC3D9"></a-plane>
+
+<a-plane width="1" height="1" rotation="-90 0 0" position="1 0 0" color="#4CC3D9"></a-plane>
+
+<a-plane width="1" height="1" rotation="-90 0 0" position="-1 0 0" color="#4CC3D9"></a-plane>
+
+<a-plane width="1" height="1" rotation="-90 0 0" position="0 0 1" color="#4CC3D9"></a-plane>
+
+<a-plane width="1" height="1" rotation="-90 0 0" position="0 0 -1" color="#4CC3D9"></a-plane>
+
+<a-plane width="1" height="1" rotation="-90 0 0" position="2 0 0" color="#4CC3D9"></a-plane>
+
 </a-entity>
 
 
@@ -93,11 +95,11 @@ width="4">
 
 <script>
 
-// ================= DATA INFORMASI =================
+// ================= DATA INFO =================
 
 const infoData = {
 
-p1:"Kubus adalah bangun ruang yang dibatasi oleh enam sisi berbentuk persegi yang sama besar.",
+p1:"Kubus adalah bangun ruang yang memiliki 6 sisi berbentuk persegi yang sama besar.",
 
 p2:"Kubus memiliki 6 sisi, 12 rusuk, dan 8 titik sudut.",
 
@@ -108,16 +110,15 @@ p4:"Volume kubus = s³."
 }
 
 
-// ================= TAMPILKAN INFO =================
+// ================= EVENT INFO =================
 
-["p1","p2","p3","p4"].forEach(id => {
+["p1","p2","p3","p4"].forEach(id=>{
 
-document.getElementById(id).addEventListener("click", () => {
+document.getElementById(id).addEventListener("click",()=>{
 
 let text=document.getElementById("infoText")
 
 text.setAttribute("value",infoData[id])
-
 text.setAttribute("visible",true)
 
 })
@@ -125,7 +126,7 @@ text.setAttribute("visible",true)
 })
 
 
-// ================= TOGGLE JARING-JARING =================
+// ================= TOGGLE JARING JARING =================
 
 document.getElementById("cube").addEventListener("click",()=>{
 
@@ -142,8 +143,7 @@ cube.setAttribute("visible",visible)
 
 // ================= DRAG ROTATE =================
 
-let cube=document.getElementById("cubeGroup")
-
+let object=document.getElementById("cubeGroup")
 let startX
 
 document.addEventListener("touchstart",e=>{
@@ -153,8 +153,7 @@ startX=e.touches[0].clientX
 document.addEventListener("touchmove",e=>{
 
 let dx=e.touches[0].clientX-startX
-
-cube.object3D.rotation.y+=dx*0.01
+object.object3D.rotation.y += dx * 0.01
 
 startX=e.touches[0].clientX
 
