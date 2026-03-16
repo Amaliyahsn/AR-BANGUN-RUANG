@@ -1,257 +1,166 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
+<head>
 
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+<meta charset="utf-8">
 
-    <script src="https://unpkg.com/aframe-gesture-detector@3.3.0/dist/aframe-gesture-detector.min.js"></script>
-    <script src="https://unpkg.com/aframe-gesture-handler@3.3.0/dist/aframe-gesture-handler.min.js"></script>
-  </head>
+<script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
 
-  <body style="margin: 0; overflow: hidden">
-    <a-scene
-      embedded
-      vr-mode-ui="enabled:false"
-      arjs="sourceType:webcam; facingMode:environment; debugUIEnabled:false"
-    >
-      <!-- ================== KUBUS ================== -->
+</head>
 
-      <a-marker type="pattern" url="markers/pattern-kubus.patt">
-        <a-entity id="kubusGroup" gesture-handler position="0 0.5 0">
-          <a-box id="kubus" color="red" scale="0.8 0.8 0.8"></a-box>
-        </a-entity>
+<body style="margin:0; overflow:hidden">
 
-        <!-- titik informasi -->
+<a-scene
+embedded
+vr-mode-ui="enabled:false"
+arjs="sourceType:webcam; facingMode:environment">
 
-        <a-sphere
-          id="k1"
-          position="0.7 0.6 0.7"
-          radius="0.05"
-          color="yellow"
-        ></a-sphere>
-        <a-sphere
-          id="k2"
-          position="-0.7 0.6 0.7"
-          radius="0.05"
-          color="yellow"
-        ></a-sphere>
-        <a-sphere
-          id="k3"
-          position="0.7 -0.6 0.7"
-          radius="0.05"
-          color="yellow"
-        ></a-sphere>
-        <a-sphere
-          id="k4"
-          position="0 1 0"
-          radius="0.05"
-          color="yellow"
-        ></a-sphere>
+<a-marker type="pattern" url="markers/pattern-kubus.patt">
 
-        <!-- informasi -->
+<!-- ================= KUBUS ================= -->
 
-        <a-text
-          id="info1"
-          value="Kubus adalah bangun ruang yang dibatasi oleh enam sisi berbentuk persegi yang sama besar."
-          position="0 1.6 0"
-          align="center"
-          visible="false"
-        >
-        </a-text>
+<a-entity id="cubeGroup" position="0 0.5 0">
 
-        <a-text
-          id="info2"
-          value="Kubus memiliki 6 sisi, 12 rusuk, dan 8 titik sudut."
-          position="0 1.6 0"
-          align="center"
-          visible="false"
-        >
-        </a-text>
+<a-box
+id="cube"
+color="red"
+scale="0.8 0.8 0.8">
+</a-box>
 
-        <a-text
-          id="info3"
-          value="Luas permukaan kubus = 6 × s²"
-          position="0 1.6 0"
-          align="center"
-          visible="false"
-        >
-        </a-text>
+</a-entity>
 
-        <a-text
-          id="info4"
-          value="Volume kubus = s³"
-          position="0 1.6 0"
-          align="center"
-          visible="false"
-        >
-        </a-text>
 
-        <!-- jaring jaring -->
+<!-- ================= JARING-JARING ================= -->
 
-        <a-image
-          id="netKubus"
-          src="Gambar/net-kubus.png"
-          position="0 0.5 0"
-          scale="2 2 2"
-          visible="false"
-        >
-        </a-image>
-      </a-marker>
+<a-entity id="cubeNet" visible="false" position="0 0.1 0">
 
-      <!-- ================== BALOK ================== -->
+<a-plane position="0 0 0" rotation="-90 0 0" width="1" height="1" color="#4CC3D9"></a-plane>
 
-      <a-marker type="pattern" url="markers/pattern-Balok.patt">
-        <a-entity id="balokGroup" gesture-handler position="0 0.5 0">
-          <a-box
-            id="balok"
-            width="0.9"
-            height="0.5"
-            depth="0.6"
-            color="green"
-          ></a-box>
-        </a-entity>
+<a-plane position="1 0 0" rotation="-90 0 0" width="1" height="1" color="#4CC3D9"></a-plane>
 
-        <a-text
-          id="balokInfo1"
-          value="Balok adalah bangun ruang yang memiliki tiga pasang sisi berbentuk persegi panjang."
-          position="0 1.6 0"
-          align="center"
-          visible="false"
-        >
-        </a-text>
+<a-plane position="-1 0 0" rotation="-90 0 0" width="1" height="1" color="#4CC3D9"></a-plane>
 
-        <a-text
-          id="balokInfo2"
-          value="Balok memiliki 6 sisi, 12 rusuk dan 8 titik sudut."
-          position="0 1.6 0"
-          align="center"
-          visible="false"
-        >
-        </a-text>
+<a-plane position="0 0 1" rotation="-90 0 0" width="1" height="1" color="#4CC3D9"></a-plane>
 
-        <a-text
-          id="balokInfo3"
-          value="Luas permukaan balok = 2(pl + pt + lt)"
-          position="0 1.6 0"
-          align="center"
-          visible="false"
-        >
-        </a-text>
+<a-plane position="0 0 -1" rotation="-90 0 0" width="1" height="1" color="#4CC3D9"></a-plane>
 
-        <a-text
-          id="balokInfo4"
-          value="Volume balok = p × l × t"
-          position="0 1.6 0"
-          align="center"
-          visible="false"
-        >
-        </a-text>
+<a-plane position="2 0 0" rotation="-90 0 0" width="1" height="1" color="#4CC3D9"></a-plane>
 
-        <a-image
-          id="netBalok"
-          src="Gambar/net-balok.png"
-          position="0 0.5 0"
-          scale="2 2 2"
-          visible="false"
-        >
-        </a-image>
-      </a-marker>
+</a-entity>
 
-      <!-- ================== TABUNG ================== -->
 
-      <a-marker type="pattern" url="markers/pattern-Tabung.patt">
-        <a-entity gesture-handler position="0 0.5 0">
-          <a-cylinder
-            id="tabung"
-            radius="0.5"
-            height="1"
-            color="orange"
-          ></a-cylinder>
-        </a-entity>
+<!-- ================= TITIK INFO ================= -->
 
-        <a-text
-          id="tabungInfo"
-          value="Tabung adalah bangun ruang sisi lengkung dengan dua sisi berbentuk lingkaran."
-          position="0 1.6 0"
-          align="center"
-          visible="false"
-        >
-        </a-text>
-      </a-marker>
+<a-entity id="p1" position="0.7 0.7 0.7">
+<a-circle color="black" radius="0.08"></a-circle>
+<a-text value="1" color="white" align="center" position="0 0 0.01"></a-text>
+</a-entity>
 
-      <!-- ================== KERUCUT ================== -->
+<a-entity id="p2" position="-0.7 0.7 0.7">
+<a-circle color="black" radius="0.08"></a-circle>
+<a-text value="2" color="white" align="center" position="0 0 0.01"></a-text>
+</a-entity>
 
-      <a-marker type="pattern" url="markers/pattern-Kerucut.patt">
-        <a-entity gesture-handler position="0 0.5 0">
-          <a-cone
-            id="kerucut"
-            radius-bottom="0.5"
-            height="1"
-            color="blue"
-          ></a-cone>
-        </a-entity>
+<a-entity id="p3" position="0.7 -0.7 0.7">
+<a-circle color="black" radius="0.08"></a-circle>
+<a-text value="3" color="white" align="center" position="0 0 0.01"></a-text>
+</a-entity>
 
-        <a-text
-          id="kerucutInfo"
-          value="Kerucut adalah bangun ruang yang memiliki alas lingkaran dan satu titik puncak."
-          position="0 1.6 0"
-          align="center"
-          visible="false"
-        >
-        </a-text>
-      </a-marker>
+<a-entity id="p4" position="0 1 0">
+<a-circle color="black" radius="0.08"></a-circle>
+<a-text value="4" color="white" align="center" position="0 0 0.01"></a-text>
+</a-entity>
 
-      <!-- ================== BOLA ================== -->
 
-      <a-marker type="pattern" url="markers/pattern-bola.patt">
-        <a-entity gesture-handler position="0 0.5 0">
-          <a-sphere id="bola" radius="0.5" color="purple"></a-sphere>
-        </a-entity>
+<!-- ================= TEXT INFO ================= -->
 
-        <a-text
-          id="bolaInfo"
-          value="Bola adalah bangun ruang yang semua titik permukaannya berjarak sama dari pusat."
-          position="0 1.6 0"
-          align="center"
-          visible="false"
-        >
-        </a-text>
-      </a-marker>
+<a-text
+id="infoText"
+value=""
+align="center"
+position="0 1.8 0"
+visible="false"
+width="4">
+</a-text>
 
-      <a-entity camera cursor="rayOrigin: mouse"></a-entity>
-    </a-scene>
+</a-marker>
 
-    <script>
-      function showInfo(button, info) {
-        document.querySelector(button).addEventListener("click", function () {
-          document.querySelector("#info1").setAttribute("visible", false);
-          document.querySelector("#info2").setAttribute("visible", false);
-          document.querySelector("#info3").setAttribute("visible", false);
-          document.querySelector("#info4").setAttribute("visible", false);
+<a-entity camera cursor="rayOrigin:mouse"></a-entity>
 
-          document.querySelector(info).setAttribute("visible", true);
-        });
-      }
+</a-scene>
 
-      function toggleNet(shape, net) {
-        document.querySelector(shape).addEventListener("click", function () {
-          let visible = document.querySelector(net).getAttribute("visible");
 
-          document.querySelector(net).setAttribute("visible", !visible);
-        });
-      }
+<script>
 
-      window.onload = function () {
-        showInfo("#k1", "#info1");
-        showInfo("#k2", "#info2");
-        showInfo("#k3", "#info3");
-        showInfo("#k4", "#info4");
+// ================= DATA INFORMASI =================
 
-        toggleNet("#kubus", "#netKubus");
-        toggleNet("#balok", "#netBalok");
-      };
-    </script>
-  </body>
+const infoData = {
+
+p1:"Kubus adalah bangun ruang yang dibatasi oleh enam sisi berbentuk persegi yang sama besar.",
+
+p2:"Kubus memiliki 6 sisi, 12 rusuk, dan 8 titik sudut.",
+
+p3:"Luas permukaan kubus = 6 × s².",
+
+p4:"Volume kubus = s³."
+
+}
+
+
+// ================= TAMPILKAN INFO =================
+
+["p1","p2","p3","p4"].forEach(id => {
+
+document.getElementById(id).addEventListener("click", () => {
+
+let text=document.getElementById("infoText")
+
+text.setAttribute("value",infoData[id])
+
+text.setAttribute("visible",true)
+
+})
+
+})
+
+
+// ================= TOGGLE JARING-JARING =================
+
+document.getElementById("cube").addEventListener("click",()=>{
+
+let cube=document.getElementById("cubeGroup")
+let net=document.getElementById("cubeNet")
+
+let visible=net.getAttribute("visible")
+
+net.setAttribute("visible",!visible)
+cube.setAttribute("visible",visible)
+
+})
+
+
+// ================= DRAG ROTATE =================
+
+let cube=document.getElementById("cubeGroup")
+
+let startX
+
+document.addEventListener("touchstart",e=>{
+startX=e.touches[0].clientX
+})
+
+document.addEventListener("touchmove",e=>{
+
+let dx=e.touches[0].clientX-startX
+
+cube.object3D.rotation.y+=dx*0.01
+
+startX=e.touches[0].clientX
+
+})
+
+</script>
+
+</body>
 </html>
