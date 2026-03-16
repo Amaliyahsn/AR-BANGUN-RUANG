@@ -174,13 +174,42 @@
         });
       });
 
-      const materi = {
-        "marker-kubus": ["Sisi: 6 persegi sama luas", "Rusuk: 12 sama panjang", "L = 6s²", "V = s³"],
-        "marker-balok": ["Sisi: 6 (persegi panjang)", "Rusuk: 12 (3 kelompok panjang)", "L = 2(pl + pt + lt)", "V = p × l × t"],
-        "marker-tabung": ["Sisi: 2 lingkaran & 1 selimut", "Rusuk: 2 (melengkung)", "L = 2πr(r + t)", "V = πr²t"],
-        "marker-kerucut": ["Sisi: 1 lingkaran & 1 selimut", "Rusuk: 1 (melengkung)", "L = πr(r + s)", "V = 1/3πr²t"],
-        "marker-bola": ["Sisi: 1 sisi lengkung", "Rusuk: Tidak ada", "L = 4πr²", "V = 4/3πr³"],
-      };
+const materi = {
+  "marker-kubus": [
+    "Kubus memiliki 6 sisi berbentuk persegi yang sama besar.",
+    "Kubus memiliki 12 rusuk yang panjangnya sama.",
+    "Luas Permukaan Kubus: L = 6 × s × s. Keterangan: s adalah panjang sisi kubus.",
+    "Volume Kubus: V = s × s × s. Keterangan: s adalah panjang sisi kubus."
+  ],
+
+  "marker-balok": [
+    "Balok memiliki 6 sisi berbentuk persegi panjang.",
+    "Balok memiliki 12 rusuk yang terdiri dari panjang, lebar, dan tinggi.",
+    "Luas Permukaan Balok: L = 2 × (p×l + p×t + l×t). Keterangan: p = panjang, l = lebar, t = tinggi.",
+    "Volume Balok: V = p × l × t. Keterangan: p = panjang, l = lebar, t = tinggi."
+  ],
+
+  "marker-tabung": [
+    "Tabung memiliki 3 sisi yaitu 2 lingkaran dan 1 selimut tabung.",
+    "Tabung memiliki 2 rusuk melengkung.",
+    "Luas Permukaan Tabung: L = 2 × π × r × (r + t). Keterangan: r = jari-jari lingkaran, t = tinggi tabung, π (phi) biasanya bernilai 22/7 atau 3,14.",
+    "Volume Tabung: V = π × r × r × t. Keterangan: r = jari-jari lingkaran, t = tinggi tabung, π (phi) biasanya bernilai 22/7 atau 3,14."
+  ],
+
+  "marker-kerucut": [
+    "Kerucut memiliki 2 sisi yaitu 1 alas berbentuk lingkaran dan 1 selimut kerucut.",
+    "Kerucut memiliki 1 rusuk melengkung.",
+    "Luas Permukaan Kerucut: L = π × r × (r + s). Keterangan: r = jari-jari alas, s = garis pelukis, π biasanya 22/7 atau 3,14.",
+    "Volume Kerucut: V = 1/3 × π × r × r × t. Keterangan: r = jari-jari alas, t = tinggi kerucut, π biasanya 22/7 atau 3,14."
+  ],
+
+  "marker-bola": [
+    "Bola memiliki 1 sisi lengkung yang menutupi seluruh permukaan bola.",
+    "Bola tidak memiliki rusuk dan tidak memiliki titik sudut.",
+    "Luas Permukaan Bola: L = 4 × π × r × r. Keterangan: r = jari-jari bola, π biasanya 22/7 atau 3,14.",
+    "Volume Bola: V = 4/3 × π × r × r × r. Keterangan: r = jari-jari bola, π biasanya 22/7 atau 3,14."
+  ],
+};
 
       function toggleNet(type) {
         if (type === "bola") {
