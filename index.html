@@ -7,142 +7,228 @@
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
   </head>
 
-  <body style="margin: 0px; overflow: hidden">
-    <a-scene embedded arjs>
-      <!-- KUBUS -->
+  <body style="margin: 0; overflow: hidden">
+    <a-scene
+      embedded
+      vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; facingMode: environment; debugUIEnabled:false"
+    >
+      <!-- ================= KUBUS ================= -->
+
       <a-marker type="pattern" url="markers/pattern-kubus.patt">
         <a-box
           id="kubus"
           position="0 0.5 0"
+          scale="0.8 0.8 0.8"
           color="blue"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 4000"
+          animation="property: rotation; to:0 360 0; loop:true; dur:4000"
         >
         </a-box>
 
+        <!-- LINE BUTTON -->
+
+        <a-plane
+          id="k1"
+          position="-1 0.6 0"
+          width="0.8"
+          height="0.25"
+          color="#222"
+        ></a-plane>
+        <a-plane
+          id="k2"
+          position="1 0.6 0"
+          width="0.8"
+          height="0.25"
+          color="#222"
+        ></a-plane>
+        <a-plane
+          id="k3"
+          position="0 1.4 0"
+          width="0.8"
+          height="0.25"
+          color="#222"
+        ></a-plane>
+        <a-plane
+          id="k4"
+          position="0 -0.2 0"
+          width="0.8"
+          height="0.25"
+          color="#222"
+        ></a-plane>
+
+        <!-- INFO TEXT -->
+
         <a-text
-          id="infoKubus"
-          value="KUBUS
-Sisi: 6
-Rusuk: 12
-Volume = s^3"
-          position="0 1.5 0"
+          id="kInfo1"
+          value="Kubus adalah bangun ruang dengan semua sisi sama panjang"
+          position="0 1.8 0"
           align="center"
           visible="false"
+        ></a-text>
+
+        <a-text
+          id="kInfo2"
+          value="Jumlah sisi = 6"
+          position="0 1.8 0"
+          align="center"
+          visible="false"
+        ></a-text>
+
+        <a-text
+          id="kInfo3"
+          value="Luas permukaan = 6s²"
+          position="0 1.8 0"
+          align="center"
+          visible="false"
+        ></a-text>
+
+        <a-text
+          id="kInfo4"
+          value="Volume = s³"
+          position="0 1.8 0"
+          align="center"
+          visible="false"
+        ></a-text>
+
+        <!-- JARING JARING -->
+
+        <a-image
+          id="netKubus"
+          src="Gambar/net-kubus.png"
+          position="0 0.7 0"
+          scale="2 2 2"
+          visible="false"
         >
-        </a-text>
+        </a-image>
       </a-marker>
 
-      <!-- BALOK -->
+      <!-- ================= BALOK ================= -->
+
       <a-marker type="pattern" url="markers/pattern-Balok.patt">
         <a-box
           id="balok"
           position="0 0.5 0"
-          depth="1.5"
-          height="0.5"
-          width="1"
+          scale="0.8 0.5 0.5"
           color="green"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 4000"
+          animation="property: rotation; to:0 360 0; loop:true; dur:4000"
         >
         </a-box>
 
         <a-text
-          id="infoBalok"
-          value="BALOK
-Volume = p × l × t"
+          id="balokInfo"
+          value="Balok memiliki 6 sisi"
           position="0 1.5 0"
-          align="center"
           visible="false"
+          align="center"
         >
         </a-text>
+
+        <a-image
+          id="netBalok"
+          src="Gambar/net-balok.png"
+          position="0 0.8 0"
+          scale="2 2 2"
+          visible="false"
+        >
+        </a-image>
       </a-marker>
 
-      <!-- TABUNG -->
+      <!-- ================= TABUNG ================= -->
+
       <a-marker type="pattern" url="markers/pattern-Tabung.patt">
         <a-cylinder
           id="tabung"
-          radius="0.4"
+          radius="0.5"
           height="1"
           color="orange"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 4000"
+          animation="property: rotation; to:0 360 0; loop:true; dur:4000"
         >
         </a-cylinder>
 
         <a-text
-          id="infoTabung"
-          value="TABUNG
-Volume = πr²t"
+          id="tabungInfo"
+          value="Volume = πr²t"
           position="0 1.5 0"
-          align="center"
           visible="false"
+          align="center"
         >
         </a-text>
       </a-marker>
 
-      <!-- KERUCUT -->
+      <!-- ================= KERUCUT ================= -->
+
       <a-marker type="pattern" url="markers/pattern-Kerucut.patt">
         <a-cone
           id="kerucut"
           radius-bottom="0.5"
           height="1"
           color="red"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 4000"
+          animation="property: rotation; to:0 360 0; loop:true; dur:4000"
         >
         </a-cone>
 
         <a-text
-          id="infoKerucut"
-          value="KERUCUT
-Volume = 1/3 πr²t"
+          id="kerucutInfo"
+          value="Volume = 1/3 πr²t"
           position="0 1.5 0"
-          align="center"
           visible="false"
+          align="center"
         >
         </a-text>
       </a-marker>
 
-      <!-- BOLA -->
+      <!-- ================= BOLA ================= -->
+
       <a-marker type="pattern" url="markers/pattern-bola.patt">
         <a-sphere
           id="bola"
           radius="0.5"
           color="purple"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 4000"
+          animation="property: rotation; to:0 360 0; loop:true; dur:4000"
         >
         </a-sphere>
 
         <a-text
-          id="infoBola"
-          value="BOLA
-Volume = 4/3 πr³"
+          id="bolaInfo"
+          value="Volume = 4/3 πr³"
           position="0 1.5 0"
-          align="center"
           visible="false"
+          align="center"
         >
         </a-text>
       </a-marker>
 
-      <!-- Kamera + cursor untuk klik -->
-<a-entity camera cursor="rayOrigin: mouse"></a-entity>
+      <a-entity camera cursor="rayOrigin: mouse"></a-entity>
     </a-scene>
 
     <script>
-      function toggleInfo(objId, infoId) {
-        let obj = document.querySelector(objId);
-        let info = document.querySelector(infoId);
+      function showInfo(button, info) {
+        document.querySelector(button).addEventListener("click", function () {
+          document.querySelector("#kInfo1").setAttribute("visible", false);
+          document.querySelector("#kInfo2").setAttribute("visible", false);
+          document.querySelector("#kInfo3").setAttribute("visible", false);
+          document.querySelector("#kInfo4").setAttribute("visible", false);
 
-        obj.addEventListener("click", function () {
-          let visible = info.getAttribute("visible");
+          document.querySelector(info).setAttribute("visible", true);
+        });
+      }
 
-          info.setAttribute("visible", !visible);
+      function showNet(shape, net) {
+        document.querySelector(shape).addEventListener("click", function () {
+          let visible = document.querySelector(net).getAttribute("visible");
+
+          document.querySelector(net).setAttribute("visible", !visible);
         });
       }
 
       window.onload = function () {
-        toggleInfo("#kubus", "#infoKubus");
-        toggleInfo("#balok", "#infoBalok");
-        toggleInfo("#tabung", "#infoTabung");
-        toggleInfo("#kerucut", "#infoKerucut");
-        toggleInfo("#bola", "#infoBola");
+        showInfo("#k1", "#kInfo1");
+        showInfo("#k2", "#kInfo2");
+        showInfo("#k3", "#kInfo3");
+        showInfo("#k4", "#kInfo4");
+
+        showNet("#kubus", "#netKubus");
+        showNet("#balok", "#netBalok");
       };
     </script>
   </body>
