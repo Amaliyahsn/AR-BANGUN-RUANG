@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+  </head>
+
+  <body style="margin: 0px; overflow: hidden">
+    <a-scene embedded arjs>
+      <!-- KUBUS -->
+      <a-marker type="pattern" url="markers/pattern-kubus.patt">
+        <a-box
+          id="kubus"
+          position="0 0.5 0"
+          color="blue"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 4000"
+        >
+        </a-box>
+
+        <a-text
+          id="infoKubus"
+          value="KUBUS
+Sisi: 6
+Rusuk: 12
+Volume = s^3"
+          position="0 1.5 0"
+          align="center"
+          visible="false"
+        >
+        </a-text>
+      </a-marker>
+
+      <!-- BALOK -->
+      <a-marker type="pattern" url="markers/pattern-Balok.patt">
+        <a-box
+          id="balok"
+          position="0 0.5 0"
+          depth="1.5"
+          height="0.5"
+          width="1"
+          color="green"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 4000"
+        >
+        </a-box>
+
+        <a-text
+          id="infoBalok"
+          value="BALOK
+Volume = p × l × t"
+          position="0 1.5 0"
+          align="center"
+          visible="false"
+        >
+        </a-text>
+      </a-marker>
+
+      <!-- TABUNG -->
+      <a-marker type="pattern" url="markers/pattern-Tabung.patt">
+        <a-cylinder
+          id="tabung"
+          radius="0.4"
+          height="1"
+          color="orange"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 4000"
+        >
+        </a-cylinder>
+
+        <a-text
+          id="infoTabung"
+          value="TABUNG
+Volume = πr²t"
+          position="0 1.5 0"
+          align="center"
+          visible="false"
+        >
+        </a-text>
+      </a-marker>
+
+      <!-- KERUCUT -->
+      <a-marker type="pattern" url="markers/pattern-Kerucut.patt">
+        <a-cone
+          id="kerucut"
+          radius-bottom="0.5"
+          height="1"
+          color="red"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 4000"
+        >
+        </a-cone>
+
+        <a-text
+          id="infoKerucut"
+          value="KERUCUT
+Volume = 1/3 πr²t"
+          position="0 1.5 0"
+          align="center"
+          visible="false"
+        >
+        </a-text>
+      </a-marker>
+
+      <!-- BOLA -->
+      <a-marker type="pattern" url="markers/pattern-bola.patt">
+        <a-sphere
+          id="bola"
+          radius="0.5"
+          color="purple"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 4000"
+        >
+        </a-sphere>
+
+        <a-text
+          id="infoBola"
+          value="BOLA
+Volume = 4/3 πr³"
+          position="0 1.5 0"
+          align="center"
+          visible="false"
+        >
+        </a-text>
+      </a-marker>
+
+      <!-- Kamera + cursor untuk klik -->
+<a-entity camera cursor="rayOrigin: mouse"></a-entity>
+    </a-scene>
+
+    <script>
+      function toggleInfo(objId, infoId) {
+        let obj = document.querySelector(objId);
+        let info = document.querySelector(infoId);
+
+        obj.addEventListener("click", function () {
+          let visible = info.getAttribute("visible");
+
+          info.setAttribute("visible", !visible);
+        });
+      }
+
+      window.onload = function () {
+        toggleInfo("#kubus", "#infoKubus");
+        toggleInfo("#balok", "#infoBalok");
+        toggleInfo("#tabung", "#infoTabung");
+        toggleInfo("#kerucut", "#infoKerucut");
+        toggleInfo("#bola", "#infoBola");
+      };
+    </script>
+  </body>
+</html>
