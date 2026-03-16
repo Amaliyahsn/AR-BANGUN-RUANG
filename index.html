@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+    <script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
 </head>
 
 <body style="margin:0; overflow:hidden">
@@ -11,69 +12,85 @@
         embedded 
         vr-mode-ui="enabled:false" 
         arjs="sourceType:webcam; facingMode:environment; debugUIEnabled: false;"
+        gesture-detector
         cursor="rayOrigin: mouse"
-        raycaster="objects: .clickable; interval: 100">
+        raycaster="objects: .clickable">
 
-        <a-marker type="pattern" url="markers/pattern-kubus.patt">
+        <a-marker type="pattern" url="markers/pattern-kubus.patt" raycaster="objects: .clickable" emitevents="true" cursor="rayOrigin: mouse" id="markerA">
             
-            <a-entity id="mainGroup" scale="1 1 1">
+            <a-entity id="mainGroup" gesture-handler="rotationFactor: 1">
                 
-                <a-entity id="cubeGroup" visible="true">
+                <a-entity id="cubeGroup">
                     <a-box 
                         id="cube" 
                         class="clickable"
                         color="#4CC3D9" 
                         scale="1 1 1"
-                        material="opacity: 0.9; transparent: true; side: double">
-                        <a-box scale="1.01 1.01 1.01" material="wireframe: true; color: white; opacity: 0.5"></a-box>
+                        material="opacity: 0.8; transparent: true">
+                        <a-box scale="1.01 1.01 1.01" material="wireframe: true; color: white; opacity: 0.6"></a-box>
                     </a-box>
 
-                    <a-entity id="p1" class="clickable" position="0.9 0.7 0.9">
+                    <a-entity id="btn1" class="clickable" position="0.8 1 0.8">
                         <a-circle color="#222" radius="0.12"></a-circle>
-                        <a-text value="1" color="white" align="center" width="4"></a-text>
-                        <a-entity line="start: 0 0 0; end: -0.4 -0.2 -0.4; color: #222"></a-entity>
+                        <a-text value="1" align="center" width="4"></a-text>
+                        <a-entity line="start: 0 0 0; end: -0.3 -0.5 -0.3; color: #222"></a-entity>
+                        <a-entity class="desc" visible="false" position="0 0.4 0">
+                            <a-plane color="#333" width="2.2" height="0.6" opacity="0.9"></a-plane>
+                            <a-text value="6 Sisi Persegi\nSisi yang sama besar" align="center" width="2.5" position="0 0 0.05"></a-text>
+                        </a-entity>
                     </a-entity>
 
-                    <a-entity id="p2" class="clickable" position="-0.9 0.7 0.9">
+                    <a-entity id="btn2" class="clickable" position="-0.9 0.5 0">
                         <a-circle color="#222" radius="0.12"></a-circle>
-                        <a-text value="2" color="white" align="center" width="4"></a-text>
-                        <a-entity line="start: 0 0 0; end: 0.4 -0.2 -0.4; color: #222"></a-entity>
+                        <a-text value="2" align="center" width="4"></a-text>
+                        <a-entity line="start: 0 0 0; end: 0.4 0 0; color: #222"></a-entity>
+                        <a-entity class="desc" visible="false" position="0 0.4 0">
+                            <a-plane color="#333" width="2.2" height="0.6" opacity="0.9"></a-plane>
+                            <a-text value="12 Rusuk\n8 Titik Sudut" align="center" width="2.5" position="0 0 0.05"></a-text>
+                        </a-entity>
                     </a-entity>
 
-                    <a-entity id="p3" class="clickable" position="0.9 -0.5 0.9">
+                    <a-entity id="btn3" class="clickable" position="0.9 -0.6 0.9">
                         <a-circle color="#222" radius="0.12"></a-circle>
-                        <a-text value="3" color="white" align="center" width="4"></a-text>
-                        <a-entity line="start: 0 0 0; end: -0.4 1 -0.4; color: #222"></a-entity>
+                        <a-text value="3" align="center" width="4"></a-text>
+                        <a-entity line="start: 0 0 0; end: -0.4 0.1 -0.4; color: #222"></a-entity>
+                        <a-entity class="desc" visible="false" position="0 0.4 0">
+                            <a-plane color="#333" width="2.2" height="0.6" opacity="0.9"></a-plane>
+                            <a-text value="Luas Permukaan\n6 x s^2" align="center" width="2.5" position="0 0 0.05"></a-text>
+                        </a-entity>
                     </a-entity>
 
-                    <a-entity id="p4" class="clickable" position="0 1.3 0">
+                    <a-entity id="btn4" class="clickable" position="0 1.6 -0.5">
                         <a-circle color="#222" radius="0.12"></a-circle>
-                        <a-text value="4" color="white" align="center" width="4"></a-text>
-                        <a-entity line="start: 0 0 0; end: 0 -0.8 0; color: #222"></a-entity>
+                        <a-text value="4" align="center" width="4"></a-text>
+                        <a-entity line="start: 0 0 0; end: 0 -1.1 0.5; color: #222"></a-entity>
+                        <a-entity class="desc" visible="false" position="0 0.4 0">
+                            <a-plane color="#333" width="2.2" height="0.6" opacity="0.9"></a-plane>
+                            <a-text value="Volume Kubus\ns x s x s (s^3)" align="center" width="2.5" position="0 0 0.05"></a-text>
+                        </a-entity>
                     </a-entity>
                 </a-entity>
 
                 <a-entity id="cubeNet" visible="false">
                     <a-entity position="0 0 0" rotation="-90 0 0">
-                        <a-entity position="0 0 0" class="clickable-net"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="1 0 0" class="clickable-net"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="-1 0 0" class="clickable-net"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="0 1 0" class="clickable-net"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="0 -1 0" class="clickable-net"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="2 0 0" class="clickable-net"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="0 0 0" class="net-side clickable"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="1 0 0" class="net-side clickable"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="-1 0 0" class="net-side clickable"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="0 1 0" class="net-side clickable"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="0 -1 0" class="net-side clickable"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="2 0 0" class="net-side clickable"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
                     </a-entity>
                 </a-entity>
 
             </a-entity>
 
             <a-text 
-                id="infoText" 
-                value="Ketuk angka untuk belajar!" 
+                id="statusLabel"
+                value="Ketuk angka atau geser untuk putar" 
+                position="0 -1.5 0.5" 
                 align="center" 
-                position="0 0.8 1.2" 
-                scale="0.8 0.8 0.8"
-                color="white"
-                background="color: #222">
+                width="4" 
+                color="white">
             </a-text>
 
         </a-marker>
@@ -82,69 +99,43 @@
     </a-scene>
 
     <script>
-        const infoData = {
-            p1: "KUBUS: Memiliki 6 sisi berbentuk persegi yang sama besar.",
-            p2: "SIFAT: Memiliki 12 rusuk dan 8 titik sudut.",
-            p3: "LUAS: 6 x (s x s)",
-            p4: "VOLUME: s x s x s"
-        };
-
-        const mainGroup = document.getElementById("mainGroup");
         const cubeGroup = document.getElementById("cubeGroup");
         const cubeNet = document.getElementById("cubeNet");
-        const infoText = document.getElementById("infoText");
+        const mainGroup = document.getElementById("mainGroup");
+        const statusLabel = document.getElementById("statusLabel");
 
-        // --- 1. LOGIKA KLIK ANGKA (DENGAN STOP PROPAGATION) ---
-        ["p1", "p2", "p3", "p4"].forEach(id => {
-            const el = document.getElementById(id);
-            el.addEventListener("mousedown", (e) => {
-                e.stopPropagation(); // Mencegah klik tembus ke kubus
-                infoText.setAttribute("value", infoData[id]);
-                infoText.setAttribute("color", "#74FF6B");
+        // 1. Logic Klik Angka
+        document.querySelectorAll('[id^="btn"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Sembunyikan semua info lain
+                document.querySelectorAll('.desc').forEach(d => d.setAttribute('visible', false));
+                // Tampilkan info target
+                btn.querySelector('.desc').setAttribute('visible', true);
             });
         });
 
-        // --- 2. LOGIKA GANTI BENTUK (KLIK KUBUS/JARING) ---
-        const toggleShape = () => {
-            const isCubeVisible = cubeGroup.getAttribute("visible");
-            cubeGroup.setAttribute("visible", !isCubeVisible);
-            cubeNet.setAttribute("visible", isCubeVisible);
-            infoText.setAttribute("value", isCubeVisible ? "Mode: Jaring-jaring" : "Mode: Bangun Ruang");
-            infoText.setAttribute("color", "white");
+        // 2. Logic Ganti Bentuk (Toggle)
+        const toggleShape = (e) => {
+            e.stopPropagation();
+            const isCube = cubeGroup.getAttribute("visible");
+            cubeGroup.setAttribute("visible", !isCube);
+            cubeNet.setAttribute("visible", isCube);
+            statusLabel.setAttribute("value", isCube ? "Mode: Jaring-jaring" : "Mode: Bangun Ruang");
         };
 
-        document.getElementById("cube").addEventListener("mousedown", toggleShape);
-        // Daftarkan semua plane jaring agar bisa diklik balik ke kubus
-        document.querySelectorAll('.clickable-net').forEach(el => {
-            el.addEventListener('mousedown', toggleShape);
+        document.getElementById("cube").addEventListener('click', toggleShape);
+        document.querySelectorAll('.net-side').forEach(side => {
+            side.addEventListener('click', toggleShape);
         });
 
-        // --- 3. LOGIKA PUTAR (DRAG) ---
-        let isDragging = false;
-        let lastX;
-        document.addEventListener("mousedown", e => { isDragging = true; lastX = e.clientX; });
-        document.addEventListener("touchstart", e => { isDragging = true; lastX = e.touches[0].clientX; });
-
-        const handleMove = (currentX) => {
-            if (!isDragging) return;
-            let dx = currentX - lastX;
-            mainGroup.object3D.rotation.y += dx * 0.01;
-            lastX = currentX;
-        };
-
-        document.addEventListener("mousemove", e => handleMove(e.clientX));
-        document.addEventListener("touchmove", e => handleMove(e.touches[0].clientX));
-        window.addEventListener("mouseup", () => isDragging = false);
-        window.addEventListener("touchend", () => isDragging = false);
-
-        // --- 4. LOGIKA ZOOM (SCALE) ---
+        // 3. Logic Zoom (Desktop Scroll)
         window.addEventListener("wheel", (e) => {
-            let scale = mainGroup.getAttribute("scale");
-            let factor = e.deltaY > 0 ? 0.9 : 1.1;
-            scale.x *= factor; scale.y *= factor; scale.z *= factor;
-            // Batasi zoom
-            scale.x = Math.min(Math.max(scale.x, 0.5), 3);
-            mainGroup.setAttribute("scale", scale);
+            let s = mainGroup.getAttribute("scale");
+            let f = e.deltaY > 0 ? 0.9 : 1.1;
+            let newScale = {x: s.x*f, y: s.y*f, z: s.z*f};
+            // Batasi skala agar tidak hilang
+            if(newScale.x > 0.3 && newScale.x < 3) mainGroup.setAttribute("scale", newScale);
         });
     </script>
 </body>
