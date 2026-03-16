@@ -335,8 +335,7 @@
           </a-entity>
         </a-entity>
       </a-marker>
-
-      <a-marker
+<a-marker
         type="pattern"
         url="markers/pattern-Tabung.patt"
         id="marker-tabung"
@@ -357,6 +356,7 @@
               height="1.21"
               material="wireframe: true; color: white"
             ></a-cylinder>
+            
             <a-circle
               class="h-sisi"
               position="0 0.61 0"
@@ -365,13 +365,15 @@
               color="yellow"
               visible="false"
             ></a-circle>
+
             <a-cylinder
-              class="h-vol"
+              id="vol-tabung"
               position="0 -0.6 0"
               radius="0.48"
-              height="0"
+              height="1.2" 
               color="#FFB74D"
               visible="false"
+              scale="1 0 1"
             ></a-cylinder>
           </a-cylinder>
 
@@ -445,6 +447,7 @@
               height="1.21"
               material="wireframe: true; color: white"
             ></a-cone>
+            
             <a-circle
               class="h-sisi"
               position="0 -0.61 0"
@@ -453,13 +456,15 @@
               color="yellow"
               visible="false"
             ></a-circle>
+
             <a-cone
-              class="h-vol"
+              id="vol-kerucut"
               position="0 -0.6 0"
               radius-bottom="0.58"
-              height="0"
+              height="1.2"
               color="#EF5350"
               visible="false"
+              scale="1 0 1"
             ></a-cone>
           </a-cone>
 
@@ -497,7 +502,6 @@
           </a-entity>
         </a-entity>
       </a-marker>
-
       <a-marker type="pattern" url="markers/pattern-bola.patt" id="marker-bola">
         <a-entity gesture-handler>
           <a-sphere
@@ -633,32 +637,58 @@
         }
 
         // Volume (Nomor 4)
-        // Bagian dalam handleInteraction khusus Volume (Nomor 4)
         if (num === 4 && volObj) {
-          mainObj.setAttribute("opacity", 0.2);
-          volObj.setAttribute("visible", true);
+            mainObj.setAttribute("opacity", 0.2);
+            volObj.setAttribute("visible", true);
 
-          // Reset animasi agar bisa diulang
-          volObj.removeAttribute("animation__scale");
-          volObj.removeAttribute("animation__pos");
+            // Reset animasi agar bisa diulang
+            volObj.removeAttribute("animation__scale");
+            volObj.removeAttribute("animation__pos");
 
-          // Animasi Tinggi (Scale)
-          volObj.setAttribute("animation__scale", {
-            property: "scale",
-            from: "0.98 0 0.98",
-            to: "0.98 0.98 0.98",
-            dur: 2000,
-            easing: "easeInOutQuad",
-          });
+            let fromScale, toScale, fromPos, toPos;
 
-          // Animasi Posisi Naik (Agar tetap di dasar kubus)
-          volObj.setAttribute("animation__pos", {
-            property: "position",
-            from: "0 -0.5 0",
-            to: "0 0 0",
-            dur: 2000,
-            easing: "easeInOutQuad",
-          });
+            // Logika spesifik per bangun ruang
+            if (activeMarkerId === "marker-kubus") {
+                fromScale = "0.98 0 0.98"; toScale = "0.98 0.98 0.98";
+                fromPos = "0 -0.5 0"; toPos = "0 0 0";
+            } 
+            else if (activeMarkerId === "marker-balok") {
+                fromScale = "1.45 0 0.75"; toScale = "1.45 0.6 0.75";
+                fromPos = "0 -0.3 0"; toPos = "0 0 0";
+            }
+            else if (activeMarkerId === "marker-tabung") {
+                // Tabung tinggi 1.2, radius 0.48
+                fromScale = "1 0 1"; toScale = "1 1 1";
+                fromPos = "0 -0.6 0"; toPos = "0 0 0";
+            }
+            else if (activeMarkerId === "marker-kerucut") {
+                // Kerucut animasi scale saja dari bawah
+                fromScale = "1 0 1"; toScale = "1 1 1";
+                fromPos = "0 -0.6 0"; toPos = "0 0 0";
+            }
+            else if (activeMarkerId === "marker-bola") {
+                // Bola tidak pake scale tinggi, tapi membesar (pulsing)
+                fromScale = "0 0 0"; toScale = "1 1 1";
+                fromPos = "0 0 0"; toPos = "0 0 0";
+            }
+
+            // Jalankan Animasi Scale
+            volObj.setAttribute("animation__scale", {
+                property: "scale",
+                from: fromScale,
+                to: toScale,
+                dur: 2000,
+                easing: "easeInOutQuad",
+            });
+
+            // Jalankan Animasi Posisi
+            volObj.setAttribute("animation__pos", {
+                property: "position",
+                from: fromPos,
+                to: toPos,
+                dur: 2000,
+                easing: "easeInOutQuad",
+            });
         }
       }
     </script>
