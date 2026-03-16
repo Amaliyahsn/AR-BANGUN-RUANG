@@ -7,80 +7,41 @@
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
     <script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
     <style>
-        /* Panel Informasi Atas */
         #info-panel {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 85%;
-            background: rgba(0, 0, 0, 0.85);
-            color: white;
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
-            display: none;
-            z-index: 1000;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            border-bottom: 4px solid #00ACC1;
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            width: 85%; background: rgba(0, 0, 0, 0.85); color: white;
+            padding: 15px; border-radius: 12px; text-align: center;
+            display: none; z-index: 1000; font-family: sans-serif;
+            border-bottom: 4px solid #FFEB3B;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-
-        /* Container Tombol Angka di Bawah */
         .ui-container {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 15px;
-            z-index: 1000;
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 15px; z-index: 1000;
         }
-
         .btn-info {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            background: #00838F; /* Warna lebih pekat */
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            transition: all 0.2s;
+            width: 50px; height: 50px; border-radius: 50%; border: 3px solid #fff;
+            background: #00838F; color: white; font-size: 18px; font-weight: bold;
+            cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3); transition: 0.2s;
         }
-
-        .btn-info:active {
-            transform: scale(0.9);
-            background: #00ACC1;
-        }
-
-        /* Label Instruksi Kecil */
+        .btn-info:active { transform: scale(0.9); background: #FFEB3B; color: #000; }
         .hint {
-            position: fixed;
-            bottom: 90px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-family: sans-serif;
-            font-size: 12px;
-            text-shadow: 1px 1px 2px black;
-            z-index: 1000;
+            position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
+            color: white; font-family: sans-serif; font-size: 12px; text-shadow: 1px 1px 2px black; z-index: 1000;
         }
     </style>
 </head>
 
 <body style="margin:0; overflow:hidden">
 
-    <div id="info-panel">Klik angka di bawah untuk mempelajari kubus</div>
+    <div id="info-panel">Klik angka di bawah untuk visualisasi bagian kubus</div>
     <div class="hint">Sentuh bangun untuk ubah bentuk | Gunakan 2 jari untuk zoom</div>
 
     <div class="ui-container">
-        <button class="btn-info" onclick="showInfo(1)">1</button>
-        <button class="btn-info" onclick="showInfo(2)">2</button>
-        <button class="btn-info" onclick="showInfo(3)">3</button>
-        <button class="btn-info" onclick="showInfo(4)">4</button>
+        <button class="btn-info" onclick="showVisual(1)">1</button>
+        <button class="btn-info" onclick="showVisual(2)">2</button>
+        <button class="btn-info" onclick="showVisual(3)">3</button>
+        <button class="btn-info" onclick="showVisual(4)">4</button>
     </div>
 
     <a-scene 
@@ -100,24 +61,53 @@
                         class="clickable"
                         onclick="toggleShape()"
                         color="#00ACC1" 
-                        material="opacity: 0.95; transparent: false">
+                        material="opacity: 0.8; transparent: true">
                         <a-box scale="1.005 1.005 1.005" material="wireframe: true; color: #FFFFFF; wireframeLineWidth: 2"></a-box>
                     </a-box>
+
+                    <a-plane id="highlighter-sisi" 
+                        position="0 0 0.51" 
+                        width="0.95" height="0.95" 
+                        color="#FFEB3B" 
+                        material="opacity: 0.7; transparent: true" 
+                        visible="false">
+                    </a-plane>
+
+                    <a-entity id="highlighter-rusuk" visible="false">
+                        <a-box position="0.5 0 0.5" scale="0.06 1.01 0.06" color="#FFEB3B"></a-box>
+                        <a-box position="-0.5 0 0.5" scale="0.06 1.01 0.06" color="#FFEB3B"></a-box>
+                        <a-box position="0 0.5 0.5" scale="1.01 0.06 0.06" color="#FFEB3B"></a-box>
+                        <a-box position="0 -0.5 0.5" scale="1.01 0.06 0.06" color="#FFEB3B"></a-box>
+                    </a-entity>
+
+                    <a-entity id="highlighter-sudut" visible="false">
+                        <a-sphere position="0.5 0.5 0.5" radius="0.08" color="#FFEB3B"></a-sphere>
+                        <a-sphere position="-0.5 0.5 0.5" radius="0.08" color="#FFEB3B"></a-sphere>
+                        <a-sphere position="0.5 -0.5 0.5" radius="0.08" color="#FFEB3B"></a-sphere>
+                        <a-sphere position="-0.5 -0.5 0.5" radius="0.08" color="#FFEB3B"></a-sphere>
+                    </a-entity>
+
+                    <a-box id="highlighter-volume" 
+                        scale="0.9 0.9 0.9" 
+                        color="#FFEB3B" 
+                        material="opacity: 0.5; transparent: true" 
+                        visible="false">
+                    </a-box>
+
                 </a-entity>
 
                 <a-entity id="cubeNet" visible="false">
                     <a-entity rotation="-90 0 0">
-                        <a-entity position="0 0 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="1 0 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="-1 0 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="0 1 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="0 -1 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="2 0 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="0 0 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="1 0 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="-1 0 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="0 1 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="0 -1 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="2 0 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
                     </a-entity>
                 </a-entity>
 
             </a-entity>
-
         </a-marker>
 
         <a-entity camera></a-entity>
@@ -129,16 +119,34 @@
         const cubeNet = document.getElementById('cubeNet');
         const mainGroup = document.getElementById('mainGroup');
 
-        const data = {
-            1: "<strong>Sisi Kubus</strong><br>Memiliki 6 sisi berbentuk persegi yang semuanya kongruen (sama luas).",
-            2: "<strong>Rusuk & Sudut</strong><br>Memiliki 12 rusuk sama panjang dan 8 titik sudut yang semuanya 90°.",
-            3: "<strong>Luas Permukaan</strong><br>L = 6 × (s × s)<br>Jumlah luas seluruh bidang sisi kubus.",
-            4: "<strong>Volume Kubus</strong><br>V = s³ (sisi × sisi × sisi)<br>Kapasitas ruang di dalam kubus."
+        const highlighters = {
+            1: document.getElementById('highlighter-sisi'),
+            2: document.getElementById('highlighter-rusuk'),
+            3: document.getElementById('highlighter-sudut'),
+            4: document.getElementById('highlighter-volume')
         };
 
-        function showInfo(num) {
+        const data = {
+            1: "<strong>Sisi Kubus</strong><br>Daerah kuning menunjukkan salah satu dari 6 sisi kubus yang berbentuk persegi.",
+            2: "<strong>Rusuk Kubus</strong><br>Garis kuning menunjukkan rusuk, yaitu pertemuan dua sisi. Kubus memiliki 12 rusuk.",
+            3: "<strong>Titik Sudut</strong><br>Bola kuning menunjukkan titik sudut, yaitu pertemuan 3 rusuk. Kubus memiliki 8 titik sudut.",
+            4: "<strong>Volume Kubus</strong><br>Warna kuning di dalam menunjukkan ruang/isi kubus. Rumus: V = s × s × s."
+        };
+
+        function showVisual(num) {
+            // Pastikan mode Bangun Ruang aktif
+            cubeGroup.setAttribute('visible', true);
+            cubeNet.setAttribute('visible', false);
+
+            // Tampilkan Panel Teks
             infoPanel.style.display = 'block';
             infoPanel.innerHTML = data[num];
+
+            // Sembunyikan semua highlighter dulu
+            Object.values(highlighters).forEach(h => h.setAttribute('visible', false));
+
+            // Munculkan highlighter yang dipilih
+            highlighters[num].setAttribute('visible', true);
         }
 
         function toggleShape() {
@@ -146,11 +154,13 @@
             cubeGroup.setAttribute('visible', !isCubeVisible);
             cubeNet.setAttribute('visible', isCubeVisible);
             
+            // Sembunyikan semua highlighter saat ganti mode
+            Object.values(highlighters).forEach(h => h.setAttribute('visible', false));
+
             infoPanel.style.display = 'block';
             infoPanel.innerHTML = isCubeVisible ? "<strong>Mode Jaring-jaring</strong><br>Ketuk bidang untuk kembali ke bentuk Kubus" : "<strong>Mode Bangun Ruang</strong><br>Ketuk kubus untuk melihat jaring-jaring";
         }
 
-        // Fitur Zoom Desktop (Mouse Wheel)
         window.addEventListener("wheel", (e) => {
             let s = mainGroup.getAttribute("scale");
             let f = e.deltaY > 0 ? 0.9 : 1.1;
