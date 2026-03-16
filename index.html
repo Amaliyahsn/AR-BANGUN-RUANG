@@ -43,43 +43,71 @@
 
         <a-marker type="pattern" url="markers/pattern-kubus.patt" id="marker-kubus">
             <a-entity gesture-handler>
-                <a-box id="obj-kubus" class="clickable" position="0 0.5 0" scale="1 1 1" color="#00ACC1" opacity="0.8">
+                <a-box id="obj-kubus" class="clickable" position="0 0.5 0" color="#00ACC1" opacity="0.8" onclick="toggleNet('kubus')">
                     <a-box scale="1.01 1.01 1.01" material="wireframe: true; color: white"></a-box>
+                    <a-plane class="h-sisi" position="0 0 0.51" width="0.9" height="0.9" color="yellow" visible="false"></a-plane>
                     <a-box class="h-vol" position="0 -0.5 0" scale="0.98 0 0.98" color="#4DD0E1" visible="false"></a-box>
                 </a-box>
+                <a-entity id="net-kubus" visible="false" rotation="-90 0 0" class="clickable" onclick="toggleNet('kubus')">
+                    <a-plane position="0 0 0" color="#00ACC1" material="side:double"></a-plane>
+                    <a-plane position="1 0 0" color="#00ACC1" material="side:double"></a-plane>
+                    <a-plane position="-1 0 0" color="#00ACC1" material="side:double"></a-plane>
+                    <a-plane position="0 1 0" color="#00ACC1" material="side:double"></a-plane>
+                    <a-plane position="0 -1 0" color="#00ACC1" material="side:double"></a-plane>
+                    <a-plane position="0 -2 0" color="#00ACC1" material="side:double"></a-plane>
+                </a-entity>
             </a-entity>
         </a-marker>
 
         <a-marker type="pattern" url="markers/pattern-Balok.patt" id="marker-balok">
             <a-entity gesture-handler>
-                <a-box id="obj-balok" class="clickable" position="0 0.3 0" width="1.5" height="0.6" depth="0.8" color="#4CAF50" opacity="0.8">
+                <a-box id="obj-balok" class="clickable" position="0 0.3 0" width="1.5" height="0.6" depth="0.8" color="#4CAF50" opacity="0.8" onclick="toggleNet('balok')">
                     <a-box width="1.51" height="0.61" depth="0.81" material="wireframe: true; color: white"></a-box>
+                    <a-plane class="h-sisi" position="0 0 0.41" width="1.4" height="0.5" color="yellow" visible="false"></a-plane>
                     <a-box class="h-vol" position="0 -0.3 0" width="1.45" height="0" depth="0.75" color="#81C784" visible="false"></a-box>
                 </a-box>
+                <a-entity id="net-balok" visible="false" rotation="-90 0 0" class="clickable" onclick="toggleNet('balok')">
+                    <a-plane width="1.5" height="0.8" color="#4CAF50" material="side:double"></a-plane>
+                    <a-plane width="1.5" height="0.6" position="0 0.7 0" color="#4CAF50" material="side:double"></a-plane>
+                    <a-plane width="1.5" height="0.6" position="0 -0.7 0" color="#4CAF50" material="side:double"></a-plane>
+                </a-entity>
             </a-entity>
         </a-marker>
 
         <a-marker type="pattern" url="markers/pattern-Tabung.patt" id="marker-tabung">
             <a-entity gesture-handler>
-                <a-cylinder id="obj-tabung" class="clickable" position="0 0.5 0" radius="0.5" height="1.2" color="#FF9800" opacity="0.8">
+                <a-cylinder id="obj-tabung" class="clickable" position="0 0.5 0" radius="0.5" height="1.2" color="#FF9800" opacity="0.8" onclick="toggleNet('tabung')">
                     <a-cylinder radius="0.51" height="1.21" material="wireframe: true; color: white"></a-cylinder>
+                    <a-circle class="h-sisi" position="0 0.61 0" rotation="-90 0 0" radius="0.5" color="yellow" visible="false"></a-circle>
                     <a-cylinder class="h-vol" position="0 -0.6 0" radius="0.48" height="0" color="#FFB74D" visible="false"></a-cylinder>
                 </a-cylinder>
+                <a-entity id="net-tabung" visible="false" rotation="-90 0 0" class="clickable" onclick="toggleNet('tabung')">
+                    <a-plane width="3.14" height="1.2" color="#FF9800" material="side:double"></a-plane>
+                    <a-circle radius="0.5" position="0 0.85 0" color="#FF9800" material="side:double"></a-circle>
+                    <a-circle radius="0.5" position="0 -0.85 0" color="#FF9800" material="side:double"></a-circle>
+                </a-entity>
             </a-entity>
         </a-marker>
 
         <a-marker type="pattern" url="markers/pattern-Kerucut.patt" id="marker-kerucut">
             <a-entity gesture-handler>
-                <a-cone id="obj-kerucut" class="clickable" position="0 0.5 0" radius-bottom="0.6" height="1.2" color="#F44336" opacity="0.8">
+                <a-cone id="obj-kerucut" class="clickable" position="0 0.5 0" radius-bottom="0.6" height="1.2" color="#F44336" opacity="0.8" onclick="toggleNet('kerucut')">
                     <a-cone radius-bottom="0.61" height="1.21" material="wireframe: true; color: white"></a-cone>
+                    <a-circle class="h-sisi" position="0 -0.61 0" rotation="90 0 0" radius="0.6" color="yellow" visible="false"></a-circle>
                     <a-cone class="h-vol" position="0 -0.6 0" radius-bottom="0.58" height="0" color="#EF5350" visible="false"></a-cone>
+                </a-cone>
+                <a-entity id="net-kerucut" visible="false" rotation="-90 0 0" class="clickable" onclick="toggleNet('kerucut')">
+                    <a-entity geometry="primitive: circle; radius: 1; thetaLength: 180" material="color: #F44336; side: double" rotation="0 0 -90"></a-entity>
+                    <a-circle radius="0.4" position="0 -0.8 0" color="#F44336" material="side: double"></a-circle>
                 </a-entity>
-            </a-marker>
+            </a-entity>
+        </a-marker>
 
         <a-marker type="pattern" url="markers/pattern-bola.patt" id="marker-bola">
             <a-entity gesture-handler>
-                <a-sphere id="obj-bola" class="clickable" position="0 0.5 0" radius="0.6" color="#9C27B0" opacity="0.8">
+                <a-sphere id="obj-bola" class="clickable" position="0 0.5 0" radius="0.6" color="#9C27B0" opacity="0.8" onclick="toggleNet('bola')">
                     <a-sphere radius="0.61" material="wireframe: true; color: white"></a-sphere>
+                    <a-sphere class="h-sisi" radius="0.62" color="yellow" opacity="0.4" visible="false"></a-sphere>
                     <a-sphere class="h-vol" radius="0.55" color="#BA68C8" opacity="0.6" visible="false"></a-sphere>
                 </a-sphere>
             </a-entity>
@@ -92,7 +120,6 @@
         const infoPanel = document.getElementById('info-panel');
         let activeMarkerId = "";
 
-        // Deteksi marker spesifik agar tidak tertukar
         const markers = document.querySelectorAll('a-marker');
         markers.forEach(m => {
             m.addEventListener('markerFound', () => { 
@@ -116,41 +143,49 @@
             "marker-bola": ["Sisi: 1 sisi lengkung", "Rusuk: Tidak ada", "L = 4πr²", "V = 4/3πr³"]
         };
 
+        function toggleNet(type) {
+            if (type === 'bola') {
+                infoPanel.innerHTML = "<strong>INFO:</strong> Bola tidak memiliki jaring-jaring datar yang sempurna.";
+                return;
+            }
+            const solid = document.getElementById('obj-' + type);
+            const net = document.getElementById('net-' + type);
+            const isVisible = solid.getAttribute('visible');
+
+            solid.setAttribute('visible', !isVisible);
+            net.setAttribute('visible', isVisible);
+            infoPanel.innerHTML = isVisible ? "Mode: <strong>Jaring-jaring</strong>" : "Mode: <strong>Bangun Ruang</strong>";
+        }
+
         function handleInteraction(num) {
             if (!activeMarkerId) return;
-
             const currentMateri = materi[activeMarkerId];
             infoPanel.innerHTML = `<strong>${activeMarkerId.split('-')[1].toUpperCase()}</strong><br>${currentMateri[num-1]}`;
 
             const markerEl = document.getElementById(activeMarkerId);
-            const mainObj = markerEl.querySelector('.clickable');
+            const mainObj = markerEl.querySelector('.clickable[id^="obj-"]');
             const volObj = markerEl.querySelector('.h-vol');
+            const sisiObj = markerEl.querySelector('.h-sisi');
 
             // Reset visual
-            volObj.setAttribute('visible', false);
-            mainObj.setAttribute('opacity', 0.8);
+            if(volObj) volObj.setAttribute('visible', false);
+            if(sisiObj) sisiObj.setAttribute('visible', false);
+            if(mainObj) mainObj.setAttribute('opacity', 0.8);
 
-            // Logika Volume (4)
-            if (num === 4) {
+            // Tanda Sisi (Nomor 1)
+            if (num === 1 && sisiObj) {
+                sisiObj.setAttribute('visible', true);
+            }
+
+            // Logika Volume (Nomor 4)
+            if (num === 4 && volObj) {
                 mainObj.setAttribute('opacity', 0.2);
                 volObj.setAttribute('visible', true);
-                
-                // Animasi air naik (kecuali bola)
                 if (activeMarkerId !== "marker-bola") {
-                    const targetHeight = activeMarkerId === 'marker-balok' ? 0.6 : 
-                                       (activeMarkerId === 'marker-tabung' || activeMarkerId === 'marker-kerucut' ? 1.2 : 1);
-                    
                     volObj.setAttribute('animation', {
                         property: 'scale',
                         from: `0.95 0 0.95`,
                         to: `0.95 0.95 0.95`,
-                        dur: 2000,
-                        easing: 'linear'
-                    });
-                    volObj.setAttribute('animation__pos', {
-                        property: 'position',
-                        from: `0 -${targetHeight/2} 0`,
-                        to: `0 0 0`,
                         dur: 2000,
                         easing: 'linear'
                     });
