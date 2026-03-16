@@ -9,26 +9,32 @@
     <style>
         #info-panel {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            width: 85%; background: rgba(0, 0, 0, 0.85); color: white;
+            width: 85%; background: rgba(0, 0, 0, 0.9); color: white;
             padding: 15px; border-radius: 12px; text-align: center;
             display: none; z-index: 1000; font-family: sans-serif;
-            border-bottom: 4px solid #FFEB3B;
+            border-bottom: 4px solid #FFEB3B; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
         .ui-container {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             display: flex; gap: 12px; z-index: 1000;
         }
         .btn-info {
-            width: 50px; height: 50px; border-radius: 50%; border: 3px solid #fff;
+            width: 55px; height: 55px; border-radius: 50%; border: 3px solid #fff;
             background: #00838F; color: white; font-weight: bold; cursor: pointer;
+            font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         .btn-info:active { background: #FFEB3B; color: #000; }
+        .hint { 
+            position: fixed; top: 120px; left: 50%; transform: translateX(-50%); 
+            color: white; background: rgba(0,0,0,0.6); padding: 8px 15px; 
+            border-radius: 20px; font-size: 12px; z-index: 999; font-family: sans-serif;
+        }
     </style>
 </head>
 
 <body style="margin:0; overflow:hidden">
-
-    <div id="info-panel">Klik angka untuk visualisasi bagian kubus</div>
+    <div id="info-panel">Arahkan kamera ke marker</div>
+    <div class="hint">Tap objek untuk Lihat Jaring-Jaring</div>
 
     <div class="ui-container">
         <button class="btn-info" onclick="showInfo(1)">1</button>
@@ -41,98 +47,149 @@
              arjs="sourceType:webcam; facingMode:environment; debugUIEnabled: false;"
              cursor="rayOrigin: mouse" raycaster="objects: .clickable">
 
-        <a-marker type="pattern" url="markers/pattern-kubus.patt">
-            <a-entity id="mainGroup" gesture-handler>
-                
-                <a-entity id="cubeGroup" visible="true">
-                    <a-box id="mainCube" class="clickable" onclick="toggleShape()" color="#00ACC1" opacity="0.8">
+        <a-marker type="pattern" url="markers/pattern-kubus.patt" id="marker-kubus">
+            <a-entity gesture-handler>
+                <a-entity id="kubus-solid" class="clickable" onclick="toggleNet('kubus')">
+                    <a-box color="#00ACC1" opacity="0.8">
                         <a-box scale="1.002 1.002 1.002" material="wireframe: true; color: white"></a-box>
                     </a-box>
-                    <a-plane id="mark-sisi-cube" position="0 0 0.51" width="0.8" height="0.8" color="yellow" opacity="0.6" visible="false"></a-plane>
-                    <a-entity id="mark-rusuk-cube" visible="false">
+                    <a-plane id="mark-sisi-kubus" position="0 0 0.51" width="0.8" height="0.8" color="yellow" opacity="0.6" visible="false"></a-plane>
+                    <a-entity id="mark-titik-kubus" visible="false">
                         <a-sphere position="0.5 0.5 0.5" radius="0.06" color="yellow"></a-sphere>
                         <a-sphere position="-0.5 0.5 0.5" radius="0.06" color="yellow"></a-sphere>
                         <a-sphere position="0.5 -0.5 0.5" radius="0.06" color="yellow"></a-sphere>
                         <a-sphere position="-0.5 -0.5 0.5" radius="0.06" color="yellow"></a-sphere>
                     </a-entity>
-                    <a-box id="mark-vol-cube" position="0 -0.5 0" scale="0.95 0 0.95" color="#4DD0E1" opacity="0.6" visible="false"></a-box>
                 </a-entity>
-
-                <a-entity id="cubeNet" visible="false">
-                    <a-entity rotation="-90 0 0">
-                        <a-entity position="0 0 0" class="clickable" onclick="toggleShape()">
-                            <a-plane id="net-plane-1" color="#00ACC1"></a-plane>
-                            <a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box>
-                            <a-entity class="net-dots" visible="false">
-                                <a-sphere position="0.5 0.5 0.05" radius="0.05" color="yellow"></a-sphere>
-                                <a-sphere position="-0.5 0.5 0.05" radius="0.05" color="yellow"></a-sphere>
-                                <a-sphere position="0.5 -0.5 0.05" radius="0.05" color="yellow"></a-sphere>
-                                <a-sphere position="-0.5 -0.5 0.05" radius="0.05" color="yellow"></a-sphere>
-                            </a-entity>
-                        </a-entity>
-                        <a-entity position="1 0 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="-1 0 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="0 1 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="0 -1 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="2 0 0" class="clickable" onclick="toggleShape()"><a-plane color="#00ACC1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                    </a-entity>
+                <a-entity id="kubus-net" visible="false" rotation="-90 0 0" class="clickable" onclick="toggleNet('kubus')">
+                    <a-plane position="0 0 0" color="#00ACC1" material="side:double"></a-plane>
+                    <a-plane position="1 0 0" color="#00ACC1" material="side:double"></a-plane>
+                    <a-plane position="-1 0 0" color="#00ACC1" material="side:double"></a-plane>
+                    <a-plane position="0 1 0" color="#00ACC1" material="side:double"></a-plane>
+                    <a-plane position="0 -1 0" color="#00ACC1" material="side:double"></a-plane>
+                    <a-plane position="0 -2 0" color="#00ACC1" material="side:double"></a-plane>
                 </a-entity>
-
             </a-entity>
         </a-marker>
+
+        <a-marker type="pattern" url="markers/pattern-Balok.patt" id="marker-balok">
+            <a-entity gesture-handler>
+                <a-entity id="balok-solid" class="clickable" onclick="toggleNet('balok')">
+                    <a-box scale="1.5 0.8 1" color="#FF5722" opacity="0.8">
+                        <a-box scale="1.002 1.002 1.002" material="wireframe: true; color: white"></a-box>
+                    </a-box>
+                    <a-plane id="mark-sisi-balok" position="0 0 0.51" width="1.3" height="0.6" color="yellow" opacity="0.6" visible="false"></a-plane>
+                    <a-entity id="mark-titik-balok" visible="false">
+                        <a-sphere position="0.75 0.4 0.5" radius="0.07" color="yellow"></a-sphere>
+                        <a-sphere position="-0.75 0.4 0.5" radius="0.07" color="yellow"></a-sphere>
+                        <a-sphere position="0.75 -0.4 0.5" radius="0.07" color="yellow"></a-sphere>
+                    </a-entity>
+                </a-entity>
+                <a-entity id="balok-net" visible="false" rotation="-90 0 0" class="clickable" onclick="toggleNet('balok')">
+                    <a-plane scale="1.5 1" position="0 0 0" color="#FF5722" material="side:double"></a-plane>
+                    <a-plane scale="1.5 0.8" position="0 0.9 0" color="#FF5722" material="side:double"></a-plane>
+                    <a-plane scale="1.5 0.8" position="0 -0.9 0" color="#FF5722" material="side:double"></a-plane>
+                </a-entity>
+            </a-entity>
+        </a-marker>
+
+        <a-marker type="pattern" url="markers/pattern-Tabung.patt" id="marker-tabung">
+            <a-entity gesture-handler>
+                <a-entity id="tabung-solid" class="clickable" onclick="toggleNet('tabung')">
+                    <a-cylinder radius="0.5" height="1" color="#FFC107" opacity="0.8"></a-cylinder>
+                    <a-circle id="mark-sisi-tabung" position="0 0.51 0" rotation="-90 0 0" radius="0.5" color="yellow" visible="false"></a-circle>
+                </a-entity>
+                <a-entity id="tabung-net" visible="false" rotation="-90 0 0" class="clickable" onclick="toggleNet('tabung')">
+                    <a-plane width="3.14" height="1" color="#FFC107" material="side:double"></a-plane>
+                    <a-circle radius="0.5" position="0 0.75 0" color="#FFC107" material="side:double"></a-circle>
+                    <a-circle radius="0.5" position="0 -0.75 0" color="#FFC107" material="side:double"></a-circle>
+                </a-entity>
+            </a-entity>
+        </a-marker>
+
+        <a-marker type="pattern" url="markers/pattern-Kerucut.patt" id="marker-kerucut">
+            <a-entity gesture-handler>
+                <a-entity id="kerucut-solid" class="clickable" onclick="toggleNet('kerucut')">
+                    <a-cone radius-bottom="0.6" height="1.2" color="#E91E63" opacity="0.8"></a-cone>
+                    <a-sphere id="mark-titik-kerucut" position="0 0.61 0" radius="0.08" color="yellow" visible="false"></a-sphere>
+                </a-entity>
+                <a-entity id="kerucut-net" visible="false" rotation="-90 0 0" class="clickable" onclick="toggleNet('kerucut')">
+                    <a-entity geometry="primitive: circle; radius: 1; thetaLength: 180" material="color: #E91E63; side: double" rotation="0 0 -90"></a-entity>
+                    <a-circle radius="0.4" position="0 -0.8 0" color="#E91E63" material="side: double"></a-circle>
+                </a-entity>
+            </a-entity>
+        </a-marker>
+
+        <a-marker type="pattern" url="markers/pattern-bola.patt" id="marker-bola">
+            <a-entity gesture-handler>
+                <a-entity id="bola-solid" class="clickable" onclick="toggleNet('bola')">
+                    <a-sphere radius="0.7" color="#4CAF50" opacity="0.8"></a-sphere>
+                    <a-sphere id="mark-sisi-bola" radius="0.71" color="yellow" opacity="0.4" visible="false"></a-sphere>
+                </a-entity>
+                <a-entity id="bola-net" visible="false" rotation="-90 0 0" class="clickable" onclick="toggleNet('bola')">
+                    <a-ellipse radius-x="0.2" radius-y="0.8" color="#4CAF50" position="0 0 0" material="side:double"></a-ellipse>
+                    <a-ellipse radius-x="0.2" radius-y="0.8" color="#4CAF50" position="0.4 0 0" material="side:double"></a-ellipse>
+                    <a-ellipse radius-x="0.2" radius-y="0.8" color="#4CAF50" position="-0.4 0 0" material="side:double"></a-ellipse>
+                </a-entity>
+            </a-entity>
+        </a-marker>
+
         <a-entity camera></a-entity>
     </a-scene>
 
     <script>
+        let activeMarker = "";
         const infoPanel = document.getElementById('info-panel');
-        const cubeGroup = document.getElementById('cubeGroup');
-        const cubeNet = document.getElementById('cubeNet');
-        const mainCube = document.getElementById('mainCube');
 
-        function showInfo(num) {
-            const isNet = cubeNet.getAttribute('visible');
-            infoPanel.style.display = 'block';
+        // Logika Deteksi Marker
+        document.querySelectorAll('a-marker').forEach(m => {
+            m.addEventListener('markerFound', () => {
+                activeMarker = m.id.replace('marker-', '');
+                infoPanel.style.display = 'block';
+                infoPanel.innerHTML = "Melihat <strong>" + activeMarker.toUpperCase() + "</strong>. Tap objek untuk jaring-jaring.";
+                resetMarkers();
+            });
+        });
+
+        // Toggle Jaring-Jaring
+        function toggleNet(type) {
+            const solid = document.getElementById(type + '-solid');
+            const net = document.getElementById(type + '-net');
+            const isVisible = solid.getAttribute('visible');
+            
+            solid.setAttribute('visible', !isVisible);
+            net.setAttribute('visible', isVisible);
+            
+            infoPanel.innerHTML = isVisible ? "Mode: <strong>Jaring-jaring</strong>" : "Mode: <strong>Bangun Ruang</strong>";
             resetMarkers();
+        }
 
-            if (num === 1) {
-                infoPanel.innerHTML = "<strong>Sisi</strong>: Bidang datar pembentuk kubus. Jaring-jaring terdiri dari 6 sisi.";
-                if(isNet) document.getElementById('net-plane-1').setAttribute('color', 'yellow');
-                else document.getElementById('mark-sisi-cube').setAttribute('visible', true);
-            } 
-            else if (num === 2 || num === 3) {
-                infoPanel.innerHTML = num === 2 ? "<strong>Rusuk</strong>: Pertemuan dua sisi kubus (Garis putih)." : "<strong>Sudut</strong>: Titik pertemuan rusuk (Titik kuning).";
-                if(isNet) document.querySelectorAll('.net-dots').forEach(d => d.setAttribute('visible', true));
-                else document.getElementById('mark-rusuk-cube').setAttribute('visible', true);
-            } 
-            else if (num === 4) {
-                if(isNet) {
-                    infoPanel.innerHTML = "<strong>Volume</strong>: Kapasitas ruang. Rakit jaring-jaring menjadi kubus untuk melihat volume.";
-                } else {
-                    infoPanel.innerHTML = "<strong>Volume</strong>: Isi ruang di dalam kubus (Sisi x Sisi x Sisi).";
-                    mainCube.setAttribute('opacity', 0.2);
-                    const v = document.getElementById('mark-vol-cube');
-                    v.setAttribute('visible', true);
-                    v.setAttribute('animation__fill', {property: 'scale', from: '0.95 0 0.95', to: '0.95 0.95 0.95', dur: 2000});
-                    v.setAttribute('animation__pos', {property: 'position', from: '0 -0.5 0', to: '0 0 0', dur: 2000});
-                }
-            }
+        // Info Detail 1-4
+        function showInfo(num) {
+            if (!activeMarker) return;
+            resetMarkers();
+            
+            const db = {
+                kubus: { 1: "Sisi: 6 Persegi", 2: "Rusuk: 12 (Sama panjang)", 3: "Titik Sudut: 8", 4: "Volume: S x S x S", s: "mark-sisi-kubus", t: "mark-titik-kubus" },
+                balok: { 1: "Sisi: 6 (3 pasang persegi panjang)", 2: "Rusuk: 12 (4p, 4l, 4t)", 3: "Titik Sudut: 8", 4: "Volume: P x L x T", s: "mark-sisi-balok", t: "mark-titik-balok" },
+                tabung: { 1: "Sisi: 3 (Alas, Tutup, Selimut)", 2: "Rusuk: 2 (Lengkung)", 3: "Titik Sudut: 0", 4: "Volume: π x r² x t", s: "mark-sisi-tabung" },
+                kerucut: { 1: "Sisi: 2 (Alas & Selimut)", 2: "Rusuk: 1 (Lengkung)", 3: "Titik Puncak: 1", 4: "Volume: 1/3 x π x r² x t", t: "mark-titik-kerucut" },
+                bola: { 1: "Sisi: 1 (Sisi Lengkung)", 2: "Rusuk: 0", 3: "Titik Sudut: 0", 4: "Volume: 4/3 x π x r³", s: "mark-sisi-bola" }
+            };
+
+            const res = db[activeMarker];
+            infoPanel.innerHTML = "<strong>" + res[num] + "</strong>";
+            
+            if (num === 1 && res.s) document.getElementById(res.s).setAttribute('visible', true);
+            if (num === 3 && res.t) document.getElementById(res.t).setAttribute('visible', true);
         }
 
         function resetMarkers() {
-            document.getElementById('mark-sisi-cube').setAttribute('visible', false);
-            document.getElementById('mark-rusuk-cube').setAttribute('visible', false);
-            document.getElementById('mark-vol-cube').setAttribute('visible', false);
-            document.getElementById('net-plane-1').setAttribute('color', '#00ACC1');
-            document.querySelectorAll('.net-dots').forEach(d => d.setAttribute('visible', false));
-            mainCube.setAttribute('opacity', 0.8);
-        }
-
-        function toggleShape() {
-            const isCube = cubeGroup.getAttribute('visible');
-            cubeGroup.setAttribute('visible', !isCube);
-            cubeNet.setAttribute('visible', isCube);
-            resetMarkers();
-            infoPanel.style.display = 'none';
+            const ids = ['mark-sisi-kubus', 'mark-titik-kubus', 'mark-sisi-balok', 'mark-titik-balok', 'mark-sisi-tabung', 'mark-titik-kerucut', 'mark-sisi-bola'];
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.setAttribute('visible', false);
+            });
         }
     </script>
 </body>
