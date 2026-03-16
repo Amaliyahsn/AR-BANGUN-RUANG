@@ -2,96 +2,109 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
     <script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
+    <style>
+        /* Desain Tombol Interaktif */
+        .ui-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 999;
+        }
+        .btn-info {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid white;
+            background: #222;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-info:active { background: #4CC3D9; }
+
+        /* Panel Informasi */
+        #info-panel {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            z-index: 999;
+            font-family: sans-serif;
+            border-left: 5px solid #4CC3D9;
+        }
+        
+        .mode-btn {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 10px;
+            background: #4CC3D9;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 999;
+        }
+    </style>
 </head>
 
 <body style="margin:0; overflow:hidden">
+
+    <div id="info-panel">Pesan Informasi Akan Muncul Di Sini</div>
+    
+    <button class="mode-btn" onclick="toggleShape()">Ubah Bentuk</button>
+
+    <div class="ui-container">
+        <button class="btn-info" onclick="showInfo(1)">1</button>
+        <button class="btn-info" onclick="showInfo(2)">2</button>
+        <button class="btn-info" onclick="showInfo(3)">3</button>
+        <button class="btn-info" onclick="showInfo(4)">4</button>
+    </div>
+
     <a-scene 
         embedded 
         vr-mode-ui="enabled:false" 
         arjs="sourceType:webcam; facingMode:environment; debugUIEnabled: false;"
-        gesture-detector
-        cursor="rayOrigin: mouse"
-        raycaster="objects: .clickable">
+        gesture-detector>
 
-        <a-marker type="pattern" url="markers/pattern-kubus.patt" raycaster="objects: .clickable" emitevents="true" cursor="rayOrigin: mouse" id="markerA">
+        <a-marker type="pattern" url="markers/pattern-kubus.patt" raycaster="objects: .clickable" emitevents="true">
             
             <a-entity id="mainGroup" gesture-handler="rotationFactor: 1">
                 
-                <a-entity id="cubeGroup">
-                    <a-box 
-                        id="cube" 
-                        class="clickable"
-                        color="#4CC3D9" 
-                        scale="1 1 1"
-                        material="opacity: 0.8; transparent: true">
-                        <a-box scale="1.01 1.01 1.01" material="wireframe: true; color: white; opacity: 0.6"></a-box>
+                <a-entity id="cubeGroup" visible="true">
+                    <a-box color="#4CC3D9" material="opacity: 0.8; transparent: true">
+                        <a-box scale="1.01 1.01 1.01" material="wireframe: true; color: white"></a-box>
                     </a-box>
-
-                    <a-entity id="btn1" class="clickable" position="0.8 1 0.8">
-                        <a-circle color="#222" radius="0.12"></a-circle>
-                        <a-text value="1" align="center" width="4"></a-text>
-                        <a-entity line="start: 0 0 0; end: -0.3 -0.5 -0.3; color: #222"></a-entity>
-                        <a-entity class="desc" visible="false" position="0 0.4 0">
-                            <a-plane color="#333" width="2.2" height="0.6" opacity="0.9"></a-plane>
-                            <a-text value="6 Sisi Persegi\nSisi yang sama besar" align="center" width="2.5" position="0 0 0.05"></a-text>
-                        </a-entity>
-                    </a-entity>
-
-                    <a-entity id="btn2" class="clickable" position="-0.9 0.5 0">
-                        <a-circle color="#222" radius="0.12"></a-circle>
-                        <a-text value="2" align="center" width="4"></a-text>
-                        <a-entity line="start: 0 0 0; end: 0.4 0 0; color: #222"></a-entity>
-                        <a-entity class="desc" visible="false" position="0 0.4 0">
-                            <a-plane color="#333" width="2.2" height="0.6" opacity="0.9"></a-plane>
-                            <a-text value="12 Rusuk\n8 Titik Sudut" align="center" width="2.5" position="0 0 0.05"></a-text>
-                        </a-entity>
-                    </a-entity>
-
-                    <a-entity id="btn3" class="clickable" position="0.9 -0.6 0.9">
-                        <a-circle color="#222" radius="0.12"></a-circle>
-                        <a-text value="3" align="center" width="4"></a-text>
-                        <a-entity line="start: 0 0 0; end: -0.4 0.1 -0.4; color: #222"></a-entity>
-                        <a-entity class="desc" visible="false" position="0 0.4 0">
-                            <a-plane color="#333" width="2.2" height="0.6" opacity="0.9"></a-plane>
-                            <a-text value="Luas Permukaan\n6 x s^2" align="center" width="2.5" position="0 0 0.05"></a-text>
-                        </a-entity>
-                    </a-entity>
-
-                    <a-entity id="btn4" class="clickable" position="0 1.6 -0.5">
-                        <a-circle color="#222" radius="0.12"></a-circle>
-                        <a-text value="4" align="center" width="4"></a-text>
-                        <a-entity line="start: 0 0 0; end: 0 -1.1 0.5; color: #222"></a-entity>
-                        <a-entity class="desc" visible="false" position="0 0.4 0">
-                            <a-plane color="#333" width="2.2" height="0.6" opacity="0.9"></a-plane>
-                            <a-text value="Volume Kubus\ns x s x s (s^3)" align="center" width="2.5" position="0 0 0.05"></a-text>
-                        </a-entity>
-                    </a-entity>
+                    
+                    <a-entity line="start: 0.5 0.5 0.5; end: 0.8 0.8 0.8; color: #222"></a-entity>
+                    <a-entity line="start: -0.5 0.5 0.5; end: -0.8 0.8 0.8; color: #222"></a-entity>
                 </a-entity>
 
                 <a-entity id="cubeNet" visible="false">
-                    <a-entity position="0 0 0" rotation="-90 0 0">
-                        <a-entity position="0 0 0" class="net-side clickable"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="1 0 0" class="net-side clickable"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="-1 0 0" class="net-side clickable"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="0 1 0" class="net-side clickable"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="0 -1 0" class="net-side clickable"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
-                        <a-entity position="2 0 0" class="net-side clickable"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                    <a-entity rotation="-90 0 0">
+                        <a-entity position="0 0 0"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="1 0 0"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="-1 0 0"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="0 1 0"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="0 -1 0"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
+                        <a-entity position="2 0 0"><a-plane color="#4CC3D9" width="1" height="1"></a-plane><a-box scale="1 1 0.02" material="wireframe:true; color:white"></a-box></a-entity>
                     </a-entity>
                 </a-entity>
 
             </a-entity>
-
-            <a-text 
-                id="statusLabel"
-                value="Ketuk angka atau geser untuk putar" 
-                position="0 -1.5 0.5" 
-                align="center" 
-                width="4" 
-                color="white">
-            </a-text>
 
         </a-marker>
 
@@ -99,43 +112,39 @@
     </a-scene>
 
     <script>
-        const cubeGroup = document.getElementById("cubeGroup");
-        const cubeNet = document.getElementById("cubeNet");
-        const mainGroup = document.getElementById("mainGroup");
-        const statusLabel = document.getElementById("statusLabel");
+        const infoPanel = document.getElementById('info-panel');
+        const cubeGroup = document.getElementById('cubeGroup');
+        const cubeNet = document.getElementById('cubeNet');
+        const mainGroup = document.getElementById('mainGroup');
 
-        // 1. Logic Klik Angka
-        document.querySelectorAll('[id^="btn"]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                // Sembunyikan semua info lain
-                document.querySelectorAll('.desc').forEach(d => d.setAttribute('visible', false));
-                // Tampilkan info target
-                btn.querySelector('.desc').setAttribute('visible', true);
-            });
-        });
-
-        // 2. Logic Ganti Bentuk (Toggle)
-        const toggleShape = (e) => {
-            e.stopPropagation();
-            const isCube = cubeGroup.getAttribute("visible");
-            cubeGroup.setAttribute("visible", !isCube);
-            cubeNet.setAttribute("visible", isCube);
-            statusLabel.setAttribute("value", isCube ? "Mode: Jaring-jaring" : "Mode: Bangun Ruang");
+        const data = {
+            1: "<b>Pengertian:</b> Kubus adalah bangun ruang 3D yang dibatasi oleh 6 bidang sisi berbentuk persegi.",
+            2: "<b>Sifat:</b> Memiliki 12 rusuk sama panjang dan 8 titik sudut.",
+            3: "<b>Luas Permukaan:</b> Rumusnya adalah 6 x (sisi x sisi).",
+            4: "<b>Volume:</b> Rumusnya adalah sisi x sisi x sisi (s³)."
         };
 
-        document.getElementById("cube").addEventListener('click', toggleShape);
-        document.querySelectorAll('.net-side').forEach(side => {
-            side.addEventListener('click', toggleShape);
-        });
+        function showInfo(num) {
+            infoPanel.style.display = 'block';
+            infoPanel.innerHTML = data[num];
+            
+            // Auto sembunyi setelah 5 detik
+            setTimeout(() => { infoPanel.style.display = 'none'; }, 5000);
+        }
 
-        // 3. Logic Zoom (Desktop Scroll)
+        function toggleShape() {
+            const isCube = cubeGroup.getAttribute('visible');
+            cubeGroup.setAttribute('visible', !isCube);
+            cubeNet.setAttribute('visible', isCube);
+            infoPanel.style.display = 'block';
+            infoPanel.innerHTML = isCube ? "Mode: Jaring-jaring" : "Mode: Bangun Ruang";
+        }
+
+        // Zoom dengan mousewheel untuk desktop
         window.addEventListener("wheel", (e) => {
             let s = mainGroup.getAttribute("scale");
             let f = e.deltaY > 0 ? 0.9 : 1.1;
-            let newScale = {x: s.x*f, y: s.y*f, z: s.z*f};
-            // Batasi skala agar tidak hilang
-            if(newScale.x > 0.3 && newScale.x < 3) mainGroup.setAttribute("scale", newScale);
+            mainGroup.setAttribute("scale", {x: s.x*f, y: s.y*f, z: s.z*f});
         });
     </script>
 </body>
