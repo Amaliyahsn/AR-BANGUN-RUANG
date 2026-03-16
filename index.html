@@ -1,165 +1,136 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-<meta charset="utf-8">
-
-<script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
-
+    <meta charset="utf-8">
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
 </head>
 
 <body style="margin:0; overflow:hidden">
+    <a-scene 
+        embedded 
+        vr-mode-ui="enabled:false" 
+        arjs="sourceType:webcam; facingMode:environment; debugUIEnabled: false;"
+        cursor="rayOrigin: mouse"
+        raycaster="objects: .clickable">
 
-<a-scene
-embedded
-vr-mode-ui="enabled:false"
-arjs="sourceType:webcam; facingMode:environment">
+        <a-marker type="pattern" url="markers/pattern-kubus.patt">
+            
+            <a-entity id="mainGroup" rotation="0 0 0">
+                
+                <a-entity id="cubeGroup" visible="true">
+                    <a-box 
+                        id="cube" 
+                        class="clickable"
+                        color="red" 
+                        scale="1 1 1"
+                        material="opacity: 0.9;">
+                    </a-box>
 
-<a-marker type="pattern" url="markers/pattern-kubus.patt">
+                    <a-entity id="p1" class="clickable" position="0.51 0.3 0" rotation="0 90 0">
+                        <a-circle color="black" radius="0.1"></a-circle>
+                        <a-text value="1" color="white" align="center" position="0 0 0.01" width="3"></a-text>
+                    </a-entity>
 
-<!-- ================= GROUP KUBUS ================= -->
+                    <a-entity id="p2" class="clickable" position="-0.51 0.3 0" rotation="0 -90 0">
+                        <a-circle color="black" radius="0.1"></a-circle>
+                        <a-text value="2" color="white" align="center" position="0 0 0.01" width="3"></a-text>
+                    </a-entity>
 
-<a-entity id="cubeGroup" position="0 0.5 0">
+                    <a-entity id="p3" class="clickable" position="0 0.3 0.51">
+                        <a-circle color="black" radius="0.1"></a-circle>
+                        <a-text value="3" color="white" align="center" position="0 0 0.01" width="3"></a-text>
+                    </a-entity>
 
-<!-- KUBUS -->
+                    <a-entity id="p4" class="clickable" position="0 0.51 0" rotation="-90 0 0">
+                        <a-circle color="black" radius="0.1"></a-circle>
+                        <a-text value="4" color="white" align="center" position="0 0 0.01" width="3"></a-text>
+                    </a-entity>
+                </a-entity>
 
-<a-box
-id="cube"
-color="red"
-scale="0.8 0.8 0.8">
-</a-box>
+                <a-entity id="cubeNet" visible="false">
+                    <a-plane position="0 0 0" rotation="-90 0 0" class="clickable" color="#4CC3D9" stroke="white"></a-plane>
+                    <a-plane position="1 0 0" rotation="-90 0 0" class="clickable" color="#4CC3D9"></a-plane>
+                    <a-plane position="-1 0 0" rotation="-90 0 0" class="clickable" color="#4CC3D9"></a-plane>
+                    <a-plane position="0 0 1" rotation="-90 0 0" class="clickable" color="#4CC3D9"></a-plane>
+                    <a-plane position="0 0 -1" rotation="-90 0 0" class="clickable" color="#4CC3D9"></a-plane>
+                    <a-plane position="2 0 0" rotation="-90 0 0" class="clickable" color="#4CC3D9"></a-plane>
+                </a-entity>
 
+            </a-entity>
 
-<!-- TITIK INFO -->
+            <a-text 
+                id="infoText" 
+                value="Klik angka untuk info\nKlik bangun untuk ubah bentuk" 
+                align="center" 
+                position="0 2 0" 
+                width="4" 
+                color="yellow">
+            </a-text>
 
-<a-entity id="p1" position="0.6 0.6 0.6">
-<a-circle radius="0.08" color="black"></a-circle>
-<a-text value="1" color="white" align="center" position="0 0 0.01"></a-text>
-</a-entity>
+        </a-marker>
 
-<a-entity id="p2" position="-0.6 0.6 0.6">
-<a-circle radius="0.08" color="black"></a-circle>
-<a-text value="2" color="white" align="center" position="0 0 0.01"></a-text>
-</a-entity>
+        <a-entity camera></a-entity>
+    </a-scene>
 
-<a-entity id="p3" position="0.6 -0.6 0.6">
-<a-circle radius="0.08" color="black"></a-circle>
-<a-text value="3" color="white" align="center" position="0 0 0.01"></a-text>
-</a-entity>
+    <script>
+        const infoData = {
+            p1: "Kubus adalah bangun ruang dengan 6 sisi persegi yang kongruen.",
+            p2: "Memiliki 12 rusuk sama panjang dan 8 titik sudut.",
+            p3: "Rumus Luas Permukaan: L = 6 x s²",
+            p4: "Rumus Volume: V = s³"
+        };
 
-<a-entity id="p4" position="0 0.9 0">
-<a-circle radius="0.08" color="black"></a-circle>
-<a-text value="4" color="white" align="center" position="0 0 0.01"></a-text>
-</a-entity>
+        const cubeGroup = document.getElementById("cubeGroup");
+        const cubeNet = document.getElementById("cubeNet");
+        const infoText = document.getElementById("infoText");
+        const mainGroup = document.getElementById("mainGroup");
 
-</a-entity>
+        // --- Logika Klik Info ---
+        ["p1", "p2", "p3", "p4"].forEach(id => {
+            document.getElementById(id).addEventListener("click", (e) => {
+                e.stopPropagation(); // Agar tidak mentrigger klik pada kubus
+                infoText.setAttribute("value", infoData[id]);
+            });
+        });
 
+        // --- Logika Ganti Bentuk (Kubus <-> Jaring) ---
+        // Kita pasang event di kubus dan bagian jaring-jaring
+        document.querySelectorAll('.clickable').forEach(el => {
+            el.addEventListener('click', (e) => {
+                if(el.id === "cube" || el.parentNode.id === "cubeNet") {
+                    const isCubeVisible = cubeGroup.getAttribute("visible");
+                    cubeGroup.setAttribute("visible", !isCubeVisible);
+                    cubeNet.setAttribute("visible", isCubeVisible);
+                    infoText.setAttribute("value", isCubeVisible ? "Bentuk: Jaring-jaring" : "Bentuk: Kubus");
+                }
+            });
+        });
 
-<!-- ================= JARING JARING ================= -->
+        // --- Logika Putar (Drag) ---
+        let isSown = false;
+        let lastX;
 
-<a-entity id="cubeNet" visible="false" position="0 0.2 0">
+        document.addEventListener("mousedown", e => { isSown = true; lastX = e.clientX; });
+        document.addEventListener("touchstart", e => { isSown = true; lastX = e.touches[0].clientX; });
 
-<a-plane width="1" height="1" rotation="-90 0 0" position="0 0 0" color="#4CC3D9"></a-plane>
+        document.addEventListener("mousemove", e => {
+            if (!isSown) return;
+            let deltaX = e.clientX - lastX;
+            mainGroup.object3D.rotation.y += deltaX * 0.01;
+            lastX = e.clientX;
+        });
 
-<a-plane width="1" height="1" rotation="-90 0 0" position="1 0 0" color="#4CC3D9"></a-plane>
+        document.addEventListener("touchmove", e => {
+            if (!isSown) return;
+            let deltaX = e.touches[0].clientX - lastX;
+            mainGroup.object3D.rotation.y += deltaX * 0.01;
+            lastX = e.touches[0].clientX;
+        });
 
-<a-plane width="1" height="1" rotation="-90 0 0" position="-1 0 0" color="#4CC3D9"></a-plane>
+        window.addEventListener("mouseup", () => isSown = false);
+        window.addEventListener("touchend", () => isSown = false);
 
-<a-plane width="1" height="1" rotation="-90 0 0" position="0 0 1" color="#4CC3D9"></a-plane>
-
-<a-plane width="1" height="1" rotation="-90 0 0" position="0 0 -1" color="#4CC3D9"></a-plane>
-
-<a-plane width="1" height="1" rotation="-90 0 0" position="2 0 0" color="#4CC3D9"></a-plane>
-
-</a-entity>
-
-
-<!-- ================= TEXT INFO ================= -->
-
-<a-text
-id="infoText"
-value=""
-align="center"
-position="0 1.8 0"
-visible="false"
-width="4">
-</a-text>
-
-</a-marker>
-
-<a-entity camera cursor="rayOrigin:mouse"></a-entity>
-
-</a-scene>
-
-
-<script>
-
-// ================= DATA INFO =================
-
-const infoData = {
-
-p1:"Kubus adalah bangun ruang yang memiliki 6 sisi berbentuk persegi yang sama besar.",
-
-p2:"Kubus memiliki 6 sisi, 12 rusuk, dan 8 titik sudut.",
-
-p3:"Luas permukaan kubus = 6 × s².",
-
-p4:"Volume kubus = s³."
-
-}
-
-
-// ================= EVENT INFO =================
-
-["p1","p2","p3","p4"].forEach(id=>{
-
-document.getElementById(id).addEventListener("click",()=>{
-
-let text=document.getElementById("infoText")
-
-text.setAttribute("value",infoData[id])
-text.setAttribute("visible",true)
-
-})
-
-})
-
-
-// ================= TOGGLE JARING JARING =================
-
-document.getElementById("cube").addEventListener("click",()=>{
-
-let cube=document.getElementById("cubeGroup")
-let net=document.getElementById("cubeNet")
-
-let visible=net.getAttribute("visible")
-
-net.setAttribute("visible",!visible)
-cube.setAttribute("visible",visible)
-
-})
-
-
-// ================= DRAG ROTATE =================
-
-let object=document.getElementById("cubeGroup")
-let startX
-
-document.addEventListener("touchstart",e=>{
-startX=e.touches[0].clientX
-})
-
-document.addEventListener("touchmove",e=>{
-
-let dx=e.touches[0].clientX-startX
-object.object3D.rotation.y += dx * 0.01
-
-startX=e.touches[0].clientX
-
-})
-
-</script>
-
+    </script>
 </body>
 </html>
